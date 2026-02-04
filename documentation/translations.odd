@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>TEI P5 ODD Customization for Syriaca.org's Mayana Corpus of Syriac Texts in English Translation</title>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>Mayana: A Corpus of Syriac Texts in English Translation</publisher>
+            <availability status="free">
+               <licence target="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+                  Attribution 4.0 International</licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>This born digital ODD provides a customization of the TEI P5 All.</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <opener></opener>
+         <divGen type="toc" xml:id="toc"/>
+         <div xml:id="documentation">
+            
+         </div>
+         <div xml:id="schema">
+            <head><title></title></head>
+            <schemaSpec ident="Mayana" start="TEI">
+               <moduleRef key="core"></moduleRef>
+               <moduleRef key="header"></moduleRef>
+               <moduleRef key="linking"></moduleRef>
+               <moduleRef key="namesdates"></moduleRef>
+               <moduleRef key="tei"></moduleRef>
+               <moduleRef key="textstructure"></moduleRef>
+               <moduleRef key="transcr"/>
+               
+               
+               <elementSpec ident="ab" module="linking" mode="change">
+                  <content>
+                     <sequence preserveOrder="false">
+                        <textNode/>
+                        <elementRef key="ellipsis" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="foreign" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="hi" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="persName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="placeName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="ptr" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="quote" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+                  <!--
+                     @xml:id required, value = "[roman #].\d+". Roman # might need to accommodate multiple layers of section numbers.
+                     @n required, value = [# equaling roman num on id].\d+ = id substring-after .]
+                     
+                  -->
+               </elementSpec>
+               
+               
+               <elementSpec ident="body" module="textstructure" mode="change">
+                  <content>
+                     <sequence minOccurs="1" maxOccurs="1" preserveOrder="true">
+                        <elementRef key="div" minOccurs="1" maxOccurs="1"/>
+                        <elementRef key="noteGrp" minOccurs="1" maxOccurs="1"/>
+                     </sequence>
+                  </content>
+               </elementSpec>
+               
+               
+               <elementSpec ident="div" module="textstructure" mode="change">
+                  <content>
+                     <sequence preserveOrder="false">
+                        <elementRef key="head" minOccurs="0" maxOccurs="2"/>
+                        <alternate>
+                           <elementRef key="ab" maxOccurs="unbounded"/>
+                           <elementRef key="div" maxOccurs="unbounded"/>
+                           <elementRef key="lg" maxOccurs="unbounded"/>
+                        </alternate>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+                  <attList>
+                     <attDef ident="type" usage="req" mode="change">
+                        <valList type="closed">
+                           <valItem ident="chapter">
+                              <desc>Chapter of a book or longer work</desc>
+                           </valItem>
+                           <valItem ident="section">
+                              <desc>A section smaller than a chapter</desc>
+                           </valItem>
+                           <valItem ident="work">
+                              <desc>A work or as much of the work as it being encoded</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                     <attDef ident="xml:id" usage="req" mode="change"/>
+                  </attList>
+                  
+                  <!--
+                     @subtype = introduction, conclusion
+                     @xml:id required, value = "[roman #].\d+ | .concl | .intro". Roman # might need to accommodate multiple layers of section numbers.
+                     @n required unless there is a @subtype, value = [# equaling roman num on id].\d+ = id substring-after .]
+                     
+                  -->
+               </elementSpec>
+               
+               
+               <elementSpec ident="foreign" module="core" mode="change">
+                  <constraintSpec ident="lang-rend" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="//tei:foreign">
+                           <sch:assert test="@rend | @xml:lang">
+                              A &lt;foreign&gt; element must have either an @xml:lang attribute
+                              or a @rend attribute. The @rend attribute should only be used for words in
+                              non-Latin scripts transliterated into Latin script.
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
+                  <attList>
+                     <attDef ident="rend" mode="change">
+                        <valList type="closed">
+                           <valItem ident="italics">
+                              <desc>Indicates that a foreign word transliterated into English should be italicized</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                     <attDef ident="xml:lang" mode="change">
+                        <valList type="closed">
+                           <valItem ident="syr">
+                              <desc>Syriac of any variety or period</desc>
+                           </valItem>
+                           <valItem ident="ar">
+                              <desc>Arabic of any variety or period</desc>
+                           </valItem>
+                           <valItem ident="cop">
+                              <desc>Coptic of any variety or period</desc>
+                           </valItem>
+                           <valItem ident="fr">
+                              <desc>French of any variety or period</desc>
+                           </valItem>
+                           <valItem ident="de">
+                              <desc>German of any variety or period</desc>
+                           </valItem>
+                           <valItem ident="grc">
+                              <desc>Ancient Greek to A.D. 1453</desc>
+                           </valItem>
+                           <valItem ident="la">
+                              <desc>Latin of any variety or period</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="head" module="core" mode="change">
+                  <attList>
+                     <attDef ident="type" usage="req" mode="change">
+                        <valList type="closed">
+                           <valItem ident="main"/>
+                           <valItem ident="section"/>
+                           <valItem ident="sub"/>
+                        </valList>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="hi" module="core" mode="change">
+                  <attList>
+                     <attDef ident="rend" usage="req" mode="change">
+                        <valList type="closed">
+                           <valItem ident="bold"/>
+                           <valItem ident="doubleQuotes"/>
+                           <valItem ident="italics"/>
+                           <valItem ident="singleQuotes"/>
+                           <valItem ident="underline"/>
+                        </valList>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="l" module="core" mode="change">
+                  <content>
+                     <sequence preserveOrder="false">
+                        <textNode/>
+                        <elementRef key="foreign" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="hi" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="persName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="placeName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="ptr" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="quote" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+                  <!--
+                     @xml:id required, value = "[roman #].\d+". Roman # might need to accommodate multiple layers of section numbers.
+                     @n required, value = [# equaling roman num on id].\d+ = id substring-after .]
+                     
+                  -->
+               </elementSpec>
+               
+               
+               <elementSpec ident="lg" module="core" mode="change">
+                  <content>
+                     <alternate minOccurs="1" maxOccurs="unbounded">
+                        <elementRef key="l" maxOccurs="unbounded"/>
+                        <elementRef key="lg" maxOccurs="unbounded"/>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                     </alternate>
+                  </content>
+                  <!--
+                     @xml:id required, value = "[roman #].\d+". Roman # might need to accommodate multiple layers of section numbers.
+                     @n required, value = [# equaling roman num on id].\d+ = id substring-after .]
+                     
+                  -->
+               </elementSpec>
+               
+               
+               <elementSpec ident="note" module="core" mode="change">
+                  <content>
+                     <sequence preserveOrder="false">
+                        <textNode/>
+                        <elementRef key="ab" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="foreign" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="hi" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="persName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="placeName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="ptr" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="quote" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+                  <attList>
+                     <!-- Is there an attribute that can point back to the anchor? -->
+                     <!-- Is there an attribute that can apply an alt numbering system? -->
+                     <attDef ident="xml:id" usage="req" mode="change"/>
+                     <attDef ident="n" usage="req" mode="change"></attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="noteGrp" module="core" mode="change">
+                  <content>
+                     <sequence minOccurs="1" maxOccurs="1" preserveOrder="true">
+                        <elementRef key="desc" minOccurs="0" maxOccurs="1"/>
+                        <elementRef key="note" minOccurs="1" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+               </elementSpec>
+               
+               
+               <elementSpec ident="persName" module="namesdates" mode="change">
+                  <content>
+                     <sequence>
+                        <textNode/>
+                        <elementRef key="placeName" minOccurs="0" maxOccurs="1"/>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+                  <attList>
+                     <attDef ident="ref" usage="rec" mode="change">
+                        <datatype minOccurs="1" maxOccurs="1">
+                           <dataRef key="teidata.pointer"/>
+                        </datatype>
+                        <constraintSpec ident="ref-on-persName" scheme="schematron">
+                           <constraint>
+                              <sch:rule context="//tei:text//tei:persName/@ref">
+                                 <sch:let name="personIndex" value="doc('https://raw.githubusercontent.com/srophe/syriaca/master/documentation/indexes/persons.xml')"></sch:let>
+                                 <sch:let name="personURIs" value="$personIndex//tei:person/@ref"/>
+                                 <sch:let name="error" value="."/>
+                                 <sch:report test="contains(., ' ')" role="error">This @ref may contain only one URI.</sch:report>
+                                 <sch:assert test="matches(., concat('http://syriaca.org/person/', '\d+'))" role="error">
+                                    The @ref attribute must take a Syriaca.org person URI which reqires 
+                                    the form 'http://syriaca.org/person/{\d+}' (where {\d+} is a number).
+                                 </sch:assert>
+                                 <sch:assert test="
+                                    every $i in .
+                                    satisfies $i = $personURIs" role="warning">
+                                    <sch:value-of select="$error"/> is not currently in use. 
+                                    Note that all person URIs take the form 'http://syriaca.org/person/{\d+}' 
+                                    (where {\d+} is a number). If a URI is not current available, replace the number portion of the URI with 
+                                    "#" followed without a space by a number that you use consistently when encoding information 
+                                    about that person. 
+                                 </sch:assert>
+                              </sch:rule>
+                           </constraint>
+                        </constraintSpec>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="placeName" module="namesdates" mode="change">
+                  <content>
+                     <sequence>
+                        <textNode/>
+                        <elementRef key="persName" minOccurs="0" maxOccurs="1"/>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+                  <attList>
+                     <attDef ident="ref" usage="rec" mode="change">
+                        <datatype minOccurs="1" maxOccurs="1">
+                           <dataRef key="teidata.pointer"/>
+                        </datatype>
+                        <constraintSpec ident="ref-on-placeName" scheme="schematron">
+                           <constraint>
+                              <sch:rule context="//tei:text//tei:placeName/@ref">
+                                 <sch:let name="placeIndex" value="doc('https://raw.githubusercontent.com/srophe/syriaca/master/documentation/indexes/places.xml')"/>
+                                 <sch:let name="placeURIs" value="$placeIndex//tei:place/@ref"/>
+                                 <sch:let name="error" value="."/>
+                                 <sch:report test="contains(., ' ')" role="error">This @ref may contain only one URI.</sch:report>
+                                 <sch:assert test="matches(., concat('http://syriaca.org/place/', '\d+'))" role="error">
+                                    The @ref attribute must take a Syriaca.org place URI which reqires 
+                                    the form 'http://syriaca.org/place/{\d+}' (where {\d+} is a number).
+                                 </sch:assert>
+                                 <sch:assert test="
+                                    every $i in .
+                                    satisfies $i = $placeURIs" role="warning">
+                                    <sch:value-of select="$error"/> is not currently in use. 
+                                    Note that all properly formatted place URIs take the form 'http://syriaca.org/place/{\d+}' 
+                                    (where {\d+} is a number). If a URI is not current available, replace the number portion of the URI with 
+                                    "#" followed without a space by a number that you use consistently when encoding information 
+                                    referring to that place. 
+                                 </sch:assert>
+                              </sch:rule>
+                           </constraint>
+                        </constraintSpec>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="ptr" module="core" mode="change">
+                  <attList>
+                     <attDef ident="type" usage="req" mode="change">
+                        <valList type="closed">
+                           <valItem ident="noteAnchor">
+                              <desc>Anchor in the text used to point to a note</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                     <attDef ident="xml:id" usage="req" mode="change"/>
+                     <attDef ident="target" usage="req" mode="change">
+                        <datatype minOccurs="1" maxOccurs="unbounded">
+                           <dataRef key="teidata.pointer"/>
+                        </datatype>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="quote" module="linking" mode="change">
+                  <content>
+                     <sequence preserveOrder="false">
+                        <textNode/>
+                        <elementRef key="foreign" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="hi" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="persName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="placeName" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="ptr" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="quote" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
+                     </sequence>
+                  </content>
+                  <attList>
+                     <attDef ident="source" usage="opt" mode="change">
+                        <datatype minOccurs="1" maxOccurs="unbounded">
+                           <dataRef key="teidata.pointer"/>
+                        </datatype>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="text" module="textstructure" mode="change">
+                  <content>
+                     <elementRef key="body" maxOccurs="1" minOccurs="1"/>
+                  </content>
+               </elementSpec>
+               
+               
+               <elementSpec ident="title" module="core" mode="change">
+                  <attList>
+                     <attDef ident="ref" usage="rec" mode="change">
+                        <datatype minOccurs="1" maxOccurs="unbounded">
+                           <dataRef key="teidata.pointer"/>
+                        </datatype>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+                             
+               
+               
+            </schemaSpec>
+         </div>
+      </body>
+   </text>
+</TEI>
