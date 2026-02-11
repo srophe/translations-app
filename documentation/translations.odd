@@ -39,6 +39,19 @@
                <moduleRef key="transcr"/>
                
                
+               <!--<classSpec type="atts" ident="att.global" mode="change">
+                  <attList>
+                     <attDef ident="dir">
+                        <valList type="closed">
+                           <valItem ident="rtl">
+                              <desc>Indicates to Oxygen XML Editor that text is to be rendered right-to-left.</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                  </attList>
+               </classSpec>-->
+               
+               
                <elementSpec ident="ab" module="linking" mode="change">
                   <content>
                      <sequence preserveOrder="false">
@@ -123,6 +136,20 @@
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
+                  <constraintSpec ident="dir-on-foreign" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="//tei:foreign[@xml:lang/contains(., 'syr')]">
+                           <sch:assert test="@dir" role="error">
+                              Must contain a @dir attribute.
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="//tei:foreign[@xml:lang/not(contains(., 'syr'))]">
+                           <sch:report test="@dir" role="error">
+                              Cannot contain a @dir attribute.
+                           </sch:report>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="rend" mode="change">
                         <valList type="closed">
@@ -153,6 +180,13 @@
                            </valItem>
                            <valItem ident="la">
                               <desc>Latin of any variety or period</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                     <attDef ident="dir" mode="add">
+                        <valList type="closed">
+                           <valItem ident="rtl">
+                              <desc>Indicates to Oxygen XML Editor that text is to be rendered right-to-left.</desc>
                            </valItem>
                         </valList>
                      </attDef>
