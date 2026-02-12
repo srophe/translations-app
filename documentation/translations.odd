@@ -78,7 +78,7 @@
                <elementSpec ident="body" module="textstructure" mode="change">
                   <content>
                      <sequence minOccurs="1" maxOccurs="1" preserveOrder="true">
-                        <elementRef key="div" minOccurs="1" maxOccurs="1"/>
+                        <elementRef key="div" minOccurs="1" maxOccurs="3"/>
                         <elementRef key="noteGrp" minOccurs="1" maxOccurs="1"/>
                      </sequence>
                   </content>
@@ -102,7 +102,7 @@
                      <attDef ident="type" usage="req" mode="change">
                         <valList type="closed">
                            <valItem ident="chapter">
-                              <desc>Chapter of a book or longer work</desc>
+                              <desc>Chapter of a book or a "book" of a longer work</desc>
                            </valItem>
                            <valItem ident="section">
                               <desc>A section smaller than a chapter</desc>
