@@ -94,7 +94,7 @@
                            <elementRef key="div" maxOccurs="unbounded"/>
                            <elementRef key="lg" maxOccurs="unbounded"/>
                         </alternate>
-                        <elementRef key="trailer" maxOccurs="1"/>
+                        <elementRef key="trailer" minOccurs="0" maxOccurs="1"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
