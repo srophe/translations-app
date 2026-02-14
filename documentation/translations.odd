@@ -104,8 +104,18 @@
                            <valItem ident="chapter">
                               <desc>Chapter of a book or a "book" of a longer work</desc>
                            </valItem>
+                           <valItem ident="preface">
+                              <desc>A short introduction to a collection of works not a part of a single
+                              work but not substantial enough to be marked up as a work in 
+                              it's own right.</desc>
+                           </valItem>
                            <valItem ident="section">
                               <desc>A section smaller than a chapter</desc>
+                           </valItem>
+                           <valItem ident="trailer">
+                              <desc>A short conclusion to a collection of works not a part of a single
+                              work but not substantial enough to be marked up as a work in
+                              it's own right.</desc>
                            </valItem>
                            <valItem ident="work">
                               <desc>A work or as much of the work as it being encoded</desc>
