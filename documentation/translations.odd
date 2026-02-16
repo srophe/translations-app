@@ -68,7 +68,16 @@
                         <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
-                  <constraintSpec ident="ab-number" scheme="schematron">
+                  <constraintSpec ident="ab" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:ab">
+                           <sch:report test="ancestor::teiHeader">
+                              The element &lt;ab&gt; is not allowed in the &lt;teiHeader&gt;.
+                           </sch:report>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="ab-atts" scheme="schematron">
                      <constraint>
                         <sch:rule context="tei:text//tei:ab[preceding-sibling::tei:ab]">
                            <sch:let name="expectedNumber" value="count(preceding::tei:ab) + 1"/>
@@ -77,11 +86,17 @@
                               but it should be <sch:value-of select="$expectedNumber"/>.
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:ab">
-                           <sch:report test="ancestor::teiHeader">
+                        <!--
+                           I'm struggling to decide how to do the xml:id atts on ab. If I follow the sequential
+                           numbering of paragraphs as I've done in the ab-atts constraintSpec above there will be 
+                           one of two problems. Either it will be difficult to see the relationship between the 
+                           ab id and the parent div id; OR the ab id will follow the hierarchy of the div ids and
+                           not share part of the ab n attribute.
+                           <sch:rule context="tei:ab/@xml:id">
+                           <sch:report test="concat('ab', parent::tei:div/@n, '.', @n)">
                               The element &lt;ab&gt; is not allowed in the &lt;teiHeader&gt;.
                            </sch:report>
-                        </sch:rule>
+                        </sch:rule>-->
                      </constraint>
                   </constraintSpec>
                   <attList>
