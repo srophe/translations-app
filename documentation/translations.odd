@@ -84,6 +84,18 @@
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
+                  <attList>
+                     <attDef ident="n" usage="req" mode="change">
+                        <datatype>
+                           <dataRef key="teidata.text"/>
+                        </datatype>
+                     </attDef>
+                     <attDef ident="xml:id" usage="req" mode="change">
+                        <datatype>
+                           <dataRef key="ID"/>
+                        </datatype>
+                     </attDef>
+                  </attList>
                   <!--
                      @xml:id required, value = "[roman #].\d+". Roman # might need to accommodate multiple layers of section numbers.
                      @n required, value = [# equaling roman num on id].\d+ = id substring-after .]
