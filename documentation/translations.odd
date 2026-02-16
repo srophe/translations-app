@@ -78,7 +78,7 @@
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:ab">
-                           <sch:report text="ancestor::teiHeader">
+                           <sch:report test="ancestor::teiHeader">
                               The element &lt;ab&gt; is not allowed in the &lt;teiHeader&gt;.
                            </sch:report>
                         </sch:rule>
