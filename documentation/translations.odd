@@ -68,6 +68,17 @@
                         <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
+                  <constraintSpec ident="ab-number" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:ab">
+                           <sch:let name="expectedNumber" value="count(preceding::tei:ab) + 1"/>
+                           <sch:assert test="number(@n) = $expectedNumber">
+                              The element &lt;ab&gt; is out of sequence. The @n attribute is numbered <sch:value-of select="@n"/> 
+                              but it should be <sch:value-of select="$expectedNumber"/>.
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                   <!--
                      @xml:id required, value = "[roman #].\d+". Roman # might need to accommodate multiple layers of section numbers.
                      @n required, value = [# equaling roman num on id].\d+ = id substring-after .]
@@ -295,6 +306,37 @@
                         <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
+                  
+                  <constraintSpec ident="note-attrs" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:note">
+                           <sch:assert test="substring-after(@xml:id, 'n') eq @n">
+                              The portion of the @xml:id attribute after "n" must match the @n attribute: 
+                              "<sch:value-of select="@n"/>".
+                           </sch:assert>
+                           <sch:assert test="substring-after(@target, '#a') eq @n">
+                              The portion of the @target attribute after "#a" must match the @n attribute: 
+                              "<sch:value-of select="@n"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:note/@xml:id">
+                           <sch:assert test="starts-with(., 'n')">
+                              The @xml:id must begin with "n".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:note/@target">
+                           <sch:let name="anchors" value="//tei:body//tei:ptr[@type='noteAnchor']/@xml:id"/>
+                           <sch:let name="anchorValues" value="for $i in $anchors return $i"/>
+                           <sch:assert test="
+                              every $i in substring-after(., '#')
+                              satisfies $i = $anchorValues">
+                              This @target attribute, <sch:value-of select="."/>, does not point to an existing @xml:id on 
+                              a &lt;ptr&gt; element of @type "noteAnchor".
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
+                  
                   <attList>
                      <!-- Is there an attribute that can point back to the anchor? -->
                      <!-- Is there an attribute that can apply an alt numbering system? -->
@@ -397,6 +439,35 @@
                
                
                <elementSpec ident="ptr" module="core" mode="change">
+                  <constraintSpec ident="ptr-atts" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:ptr[@type='noteAnchor']">
+                           <sch:assert test="substring-after(@xml:id, 'a') eq @n">
+                              The portion of the @xml:id attribute after "a" must match the @n attribute: 
+                              "<sch:value-of select="@n"/>".
+                           </sch:assert>
+                           <sch:assert test="substring-after(@target, '#n') eq @n">
+                              The portion of the @target attribute after "#n" must match the @n attribute: 
+                              "<sch:value-of select="@n"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:ptr/@xml:id">
+                           <sch:assert test="starts-with(., 'a')">
+                              The @xml:id must begin with "a".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:ptr/@target">
+                           <sch:let name="notes" value="//tei:noteGrp//tei:note/@xml:id"/>
+                           <sch:let name="noteValues" value="for $i in $notes return $i"/>
+                           <sch:assert test="
+                              every $i in substring-after(., '#')
+                              satisfies $i = $noteValues">
+                              This @target attribute, <sch:value-of select="."/>, does not point to an existing @xml:id on 
+                              a &lt;note&gt; element.
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="type" usage="req" mode="change">
                         <valList type="closed">
