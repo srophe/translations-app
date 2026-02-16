@@ -110,6 +110,42 @@
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
+                  <constraintSpec ident="div-atts" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:body/tei:div/child::tei:div[@n]">
+                           <sch:let name="expectedNumber" value="count(preceding-sibling::tei:div[@n]) + 1"/>
+                           <sch:assert test="number(@n) = $expectedNumber">
+                              The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
+                              but it should be "<sch:value-of select="$expectedNumber"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        
+                        <sch:rule context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][1]">
+                           <sch:let name="parentDivN" value="number(parent::tei:div/@n)"/>
+                           <sch:assert test="@n = $parentDivN + .1">
+                              The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
+                              but it should be "<sch:value-of select="$parentDivN + .1"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        
+                        <sch:rule context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][preceding-sibling::tei:div]">
+                           <sch:let name="parentDivN" value="parent::tei:div/@n"/>
+                           <sch:let name="previousNAtt" value="preceding-sibling::tei:div[1]/@n"/>
+                           <sch:let name="previousSequence" value="number(substring-after($previousNAtt, '.'))"/>
+                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+                           <sch:let name="expectedNAtt" value="concat($parentDivN, '.', $expectedSequence)"/>
+                           <sch:assert test="@n = $expectedNAtt">
+                              The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
+                              but it should be "<sch:value-of select="$expectedNAtt"/>".
+                              <!--ParentDivN: <sch:value-of select="$parentDivN"/>
+                PreviousNAtt: <sch:value-of select="$previousNAtt"/>
+                PreviousSequence: <sch:value-of select="$previousSequence"/>
+                ExpectedSequence: <sch:value-of select="$expectedSequence"/>
+                ExpectedNAtt: <sch:value-of select="$expectedNAtt"/>-->
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="type" usage="req" mode="change">
                         <valList type="closed">
