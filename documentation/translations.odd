@@ -234,9 +234,11 @@
                   <constraintSpec ident="foreign-atts" scheme="schematron">
                      <constraint>
                         <sch:rule context="//tei:foreign">
-                           <sch:assert test="@type | @xml:lang">
+                           <sch:assert test="@rend | @xml:lang">
                               A &lt;foreign&gt; element must have either an @xml:lang attribute
-                              or a @type attribute with the value "transliteration".
+                              or a @rend attribute with the value "italics". The latter is used in
+                              cases where the foreign word is transliterated from another script
+                              in Latin letters.
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="//tei:foreign[@type]">
@@ -269,13 +271,6 @@
                         <valList type="closed">
                            <valItem ident="italics">
                               <desc>Indicates that a foreign word transliterated into English should be italicized</desc>
-                           </valItem>
-                        </valList>
-                     </attDef>
-                     <attDef ident="type" mode="change">
-                        <valList type="closed">
-                           <valItem ident="transliteration">
-                              <desc>Indicates that a foreign word has been transliterated into English.</desc>
                            </valItem>
                         </valList>
                      </attDef>
