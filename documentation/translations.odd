@@ -236,7 +236,7 @@
                         <sch:rule context="//tei:foreign">
                            <sch:assert test="@type | @xml:lang">
                               A &lt;foreign&gt; element must have either an @xml:lang attribute
-                              or a @type attribute. The @type attribute must have the value "transliteration".
+                              or a @type attribute with the value "transliteration".
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="//tei:foreign[@type]">
