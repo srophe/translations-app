@@ -231,19 +231,20 @@
                
                
                <elementSpec ident="foreign" module="core" mode="change">
-                  <constraintSpec ident="lang-rend" scheme="schematron">
+                  <constraintSpec ident="foreign-atts" scheme="schematron">
                      <constraint>
                         <sch:rule context="//tei:foreign">
-                           <sch:assert test="@rend | @xml:lang">
+                           <sch:assert test="@type | @xml:lang">
                               A &lt;foreign&gt; element must have either an @xml:lang attribute
-                              or a @rend attribute. The @rend attribute should only be used for words in
-                              non-Latin scripts transliterated into Latin script.
+                              or a @type attribute. The @type attribute must have the value "transliteration".
                            </sch:assert>
                         </sch:rule>
-                     </constraint>
-                  </constraintSpec>
-                  <constraintSpec ident="dir-on-foreign" scheme="schematron">
-                     <constraint>
+                        <sch:rule context="//tei:foreign[@type]">
+                           <sch:assert test="@rend">
+                              A &lt;foreign&gt; element containing a transliteration must have a 
+                              @rend attribute with the value "italics". 
+                           </sch:assert>
+                        </sch:rule>
                         <sch:rule context="//tei:foreign[@xml:lang/contains(., 'syr')]">
                            <sch:assert test="@dir" role="error">
                               Must contain a @dir attribute.
@@ -257,6 +258,13 @@
                      </constraint>
                   </constraintSpec>
                   <attList>
+                     <attDef ident="dir" mode="add">
+                        <valList type="closed">
+                           <valItem ident="rtl">
+                              <desc>Indicates to Oxygen XML Editor that text is to be rendered right-to-left.</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
                      <attDef ident="rend" mode="change">
                         <valList type="closed">
                            <valItem ident="italics">
@@ -264,7 +272,14 @@
                            </valItem>
                         </valList>
                      </attDef>
-                     <attDef ident="xml:lang" mode="change">
+                     <attDef ident="type" mode="change">
+                        <valList type="closed">
+                           <valItem ident="transliteration">
+                              <desc>Indicates that a foreign word has been transliterated into English.</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                     <attDef ident="xml:lang" mode="change" usage="rec">
                         <valList type="closed">
                            <valItem ident="syr">
                               <desc>Syriac of any variety or period</desc>
@@ -286,13 +301,6 @@
                            </valItem>
                            <valItem ident="la">
                               <desc>Latin of any variety or period</desc>
-                           </valItem>
-                        </valList>
-                     </attDef>
-                     <attDef ident="dir" mode="add">
-                        <valList type="closed">
-                           <valItem ident="rtl">
-                              <desc>Indicates to Oxygen XML Editor that text is to be rendered right-to-left.</desc>
                            </valItem>
                         </valList>
                      </attDef>
