@@ -100,8 +100,8 @@
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div/child::tei:ab[1]/@xml:id">
-                           <sch:let name="parentDivID" value="number(parent::tei:div/@xml:id)"/>
-                           <sch:assert test=". = concat($parentDivID, '.1'">
+                           <sch:let name="parentDivID" value="parent::tei:div/@xml:id"/>
+                           <sch:assert test=". = concat($parentDivID, '.1')">
                               This @xml:id attribute is "<sch:value-of select="."/>" 
                               but it should be "<sch:value-of select="concat($parentDivID, '.1'"/>".
                            </sch:assert>
