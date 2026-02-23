@@ -247,7 +247,7 @@
                         <sch:rule context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][preceding-sibling::tei:div]">
                            <sch:let name="parentDivN" value="parent::tei:div/@n"/>
                            <sch:let name="previousNAtt" value="preceding-sibling::tei:div[1]/@n"/>
-                           <sch:let name="previousSequence" value="tokenize($previousNAtt, '\.')[last()]"/>
+                           <sch:let name="previousSequence" value="number(tokenize($previousNAtt, '\.')[last()])"/>
                            <sch:let name="expectedSequence" value="$previousSequence + 1"/>
                            <sch:let name="expectedNAtt" value="concat($parentDivN, '.', $expectedSequence)"/>
                            <sch:assert test="@n = $expectedNAtt">
