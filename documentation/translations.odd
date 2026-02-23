@@ -5,8 +5,7 @@
 <TEI 
    xmlns="http://www.tei-c.org/ns/1.0" 
    xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:functx="http://www.functx.com">
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
    
    <teiHeader>
       <fileDesc>
@@ -42,43 +41,6 @@
                <moduleRef key="tei"></moduleRef>
                <moduleRef key="textstructure"></moduleRef>
                <moduleRef key="transcr"/>
-               
-               <constraintSpec ident="sch_namespaces" scheme="schematron">
-                  <constraint>
-                     <sch:ns prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
-                     <sch:ns prefix="functx" uri="http://www.functx.com"/>
-                     <sch:ns prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
-                  </constraint>
-               </constraintSpec>
-               
-               <constraintSpec ident="import-functx" scheme="schematron">
-                  <constraint>
-                     <xsl:include href="http://www.functx.com/functx.xsl"/>
-                  </constraint>
-               </constraintSpec>
-               
-               <!--<constraintSpec ident="functx-logic" scheme="schematron">
-                  <constraint>
-                     <sch:ns uri="http://www.functx.com" prefix="functx"/>
-                     <xsl:function name="functx:substring-after-last" as="xs:string">
-                        <xsl:param name="arg" as="xs:string?"/>
-                        <xsl:param name="delim" as="xs:string"/>
-                        <xsl:sequence select="replace($arg, concat('^.*', functx:escape-for-regex($delim)), '')"/>
-                     </xsl:function>
-                     <xsl:function name="functx:escape-for-regex" as="xs:string">
-                        <xsl:param name="arg" as="xs:string?"/>
-                        <xsl:sequence select="replace($arg, '(\.|\[|\]|\\|\||\-|\^|\$|\?|\*|\+|\{|\}|\(|\))', '\\$1')"/>
-                     </xsl:function>
-                  </constraint>
-               </constraintSpec>-->
-               
-               <!--<constraintSpec ident="include-functx" scheme="schematron">
-                  <desc>Imports the FunctX library into the generated Schematron</desc>
-                  <constraint>
-                     <sch:ns uri="http://www.functx.com" prefix="functx"/>
-                     <xsl:include href="http://www.functx.com/functx.xsl"/>
-                  </constraint>
-               </constraintSpec>-->
                
                
                <!--<classSpec type="atts" ident="att.global" mode="change">
@@ -138,7 +100,7 @@
                         <sch:rule context="tei:body//tei:div/child::tei:ab[preceding-sibling::tei:ab]">
                            <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
                            <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
-                           <sch:let name="previousSequence" value="number(functx:substring-after-last($previousIDAtt, '.'))"/>
+                           <sch:let name="previousSequence" value="number(tokenize($previousIDAtt, '\.')[last()])"/>
                            <sch:let name="expectedSequence" value="$previousSequence + 1"/>
                            <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
                            <sch:assert test="@xml:id = $expectedIDAtt">
