@@ -79,7 +79,7 @@
                   </constraintSpec>
                   <constraintSpec ident="ab-atts" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:text//tei:ab[preceding-sibling::tei:ab]">
+                        <sch:rule context="tei:text//tei:ab">
                            <sch:let name="expectedNumber" value="count(preceding::tei:ab) + 1"/>
                            <sch:assert test="number(@n) = $expectedNumber">
                               The element &lt;ab&gt; is out of sequence. The @n attribute is numbered <sch:value-of select="@n"/> 
