@@ -190,9 +190,6 @@
                   <attList>
                      <attDef ident="type" usage="req" mode="change">
                         <valList type="closed">
-                           <valItem ident="chapter">
-                              <desc>Chapter of a book or a "book" of a longer work</desc>
-                           </valItem>
                            <valItem ident="conclusion">
                               <desc>A conclusion that is the equivalent of a chapter but not
                               numbered among the chapters of the work.</desc>
@@ -206,7 +203,7 @@
                               it's own right.</desc>
                            </valItem>
                            <valItem ident="section">
-                              <desc>A section smaller than a chapter</desc>
+                              <desc>A section of text.</desc>
                            </valItem>
                            <valItem ident="trailer">
                               <desc>A short conclusion to a collection of works not a part of a single
