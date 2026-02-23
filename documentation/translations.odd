@@ -2,7 +2,12 @@
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
 	schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+<TEI 
+   xmlns="http://www.tei-c.org/ns/1.0" 
+   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+   xmlns:functx="http://www.functx.com">
+   
    <teiHeader>
       <fileDesc>
          <titleStmt>
@@ -29,7 +34,7 @@
          </div>
          <div xml:id="schema">
             <head><title></title></head>
-            <schemaSpec ident="Mayana" start="TEI">
+            <schemaSpec ident="Translations" start="TEI">
                <moduleRef key="core"></moduleRef>
                <moduleRef key="header"></moduleRef>
                <moduleRef key="linking"></moduleRef>
@@ -37,6 +42,14 @@
                <moduleRef key="tei"></moduleRef>
                <moduleRef key="textstructure"></moduleRef>
                <moduleRef key="transcr"/>
+               
+               <constraintSpec ident="include-functx" scheme="schematron">
+                  <desc>Imports the FunctX library into the generated Schematron</desc>
+                  <constraint>
+                     <sch:ns uri="http://www.functx.com" prefix="functx"/>
+                     <xsl:include href="http://www.functx.com/functx.xsl"/>
+                  </constraint>
+               </constraintSpec>
                
                
                <!--<classSpec type="atts" ident="att.global" mode="change">
@@ -86,17 +99,25 @@
                               but it should be <sch:value-of select="$expectedNumber"/>.
                            </sch:assert>
                         </sch:rule>
-                        <!--
-                           I'm struggling to decide how to do the xml:id atts on ab. If I follow the sequential
-                           numbering of paragraphs as I've done in the ab-atts constraintSpec above there will be 
-                           one of two problems. Either it will be difficult to see the relationship between the 
-                           ab id and the parent div id; OR the ab id will follow the hierarchy of the div ids and
-                           not share part of the ab n attribute.
-                           <sch:rule context="tei:ab/@xml:id">
-                           <sch:report test="concat('ab', parent::tei:div/@n, '.', @n)">
-                              The element &lt;ab&gt; is not allowed in the &lt;teiHeader&gt;.
-                           </sch:report>
-                        </sch:rule>-->
+                        <sch:rule context="tei:body//tei:div/child::tei:ab[1]/@xml:id">
+                           <sch:let name="parentDivID" value="number(parent::tei:div/@xml:id)"/>
+                           <sch:assert test=". = concat($parentDivID, '.1'">
+                              This @xml:id attribute is "<sch:value-of select="."/>" 
+                              but it should be "<sch:value-of select="concat($parentDivID, '.1'"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div/child::tei:ab[preceding-sibling::tei:ab]">
+                           <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
+                           <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
+                           <sch:let name="previousSequence" value="number(functx:substring-after-last($previousIDAtt, '.'))"/>
+                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+                           <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
+                           <sch:assert test="@xml:id = $expectedIDAtt">
+                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
+                              but in order to match the text structure it should be 
+                              "<sch:value-of select="$expectedIDAtt"/>".
+                           </sch:assert>
+                        </sch:rule>
                      </constraint>
                   </constraintSpec>
                   <attList>

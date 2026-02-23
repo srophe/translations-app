@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-02-23T16:22:52Z. . 
+Schema generated from ODD source 2026-02-23T17:37:36Z. . 
 TEI Edition: P5 Version 4.10.2. Last updated on 4th September 2025, revision bcfa98f42 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.10.2/ 
   
@@ -267,11 +267,13 @@ Suggested values include: 1] human; 2] template; 3] system; 4] bot; 5] unspecifi
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.cmc-generatedBy-CMC_generatedBy_within_post-constraint-rule-1">
+            id="Translations-att.cmc-generatedBy-CMC_generatedBy_within_post-constraint-rule-1">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@generatedBy]">
          <sch:assert test="ancestor-or-self::tei:post">The @generatedBy attribute is for use within a &lt;post&gt; element.</sch:assert>
       </sch:rule>
@@ -369,31 +371,37 @@ Suggested values include: 1] human; 2] template; 3] system; 4] bot; 5] unspecifi
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.datable.w3c-att-datable-w3c-when-constraint-rule-2">
+            id="Translations-att.datable.w3c-att-datable-w3c-when-constraint-rule-2">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@when]">
          <sch:report test="@notBefore|@notAfter|@from|@to" role="nonfatal">The @when attribute cannot be used with any other att.datable.w3c attributes.</sch:report>
       </sch:rule>
    </pattern>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.datable.w3c-att-datable-w3c-from-constraint-rule-3">
+            id="Translations-att.datable.w3c-att-datable-w3c-from-constraint-rule-3">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@from]">
          <sch:report test="@notBefore" role="nonfatal">The @from and @notBefore attributes cannot be used together.</sch:report>
       </sch:rule>
    </pattern>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.datable.w3c-att-datable-w3c-to-constraint-rule-4">
+            id="Translations-att.datable.w3c-att-datable-w3c-to-constraint-rule-4">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@to]">
          <sch:report test="@notAfter" role="nonfatal">The @to and @notAfter attributes cannot be used together.</sch:report>
       </sch:rule>
@@ -701,11 +709,13 @@ Suggested values include: 1] internal; 2] external; 3] conjecture</a:documentati
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.global.source-source-only_1_ODD_source-constraint-rule-5">
+            id="Translations-att.global.source-source-only_1_ODD_source-constraint-rule-5">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@source]">
          <sch:let name="srcs" value="tokenize( normalize-space(@source),' ')"/>
          <sch:report test="(   self::tei:classRef                                 | self::tei:dataRef                                 | self::tei:elementRef                                 | self::tei:macroRef                                 | self::tei:moduleRef                                 | self::tei:schemaSpec )                                   and                                   $srcs[2]">
@@ -830,11 +840,13 @@ Suggested values include: 1] m (metre); 2] kg (kilogram); 3] s (second); 4] Hz (
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.measurement-att-measurement-unitRef-constraint-rule-6">
+            id="Translations-att.measurement-att-measurement-unitRef-constraint-rule-6">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@unitRef]">
          <sch:report test="@unit" role="info">The @unit attribute may be unnecessary when @unitRef is present.</sch:report>
       </sch:rule>
@@ -919,11 +931,13 @@ Suggested values include: 1] top; 2] bottom; 3] margin; 4] opposite; 5] overleaf
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.pointing-targetLang-targetLang-constraint-rule-7">
+            id="Translations-att.pointing-targetLang-targetLang-constraint-rule-7">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[not(self::tei:schemaSpec)][@targetLang]">
          <sch:assert test="@target">@targetLang should only be used on <sch:name/> if @target is specified.</sch:assert>
       </sch:rule>
@@ -1093,11 +1107,13 @@ Suggested values include: 1] sole; 2] major; 3] minor</a:documentation>
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.spanning-spanTo-spanTo-points-to-following-constraint-rule-8">
+            id="Translations-att.spanning-spanTo-spanTo-points-to-following-constraint-rule-8">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[ starts-with( @spanTo, '#') ]">
          <sch:assert test="id( substring( @spanTo, 2 ) ) &gt;&gt; .">
 	      The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow the current <sch:name/> element 
@@ -1137,11 +1153,13 @@ Suggested values include: 1] sole; 2] major; 3] minor</a:documentation>
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.styleDef-schemeVersion-schemeVersionRequiresScheme-constraint-rule-9">
+            id="Translations-att.styleDef-schemeVersion-schemeVersionRequiresScheme-constraint-rule-9">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@schemeVersion]">
          <sch:assert test="@scheme and not(@scheme = 'free')">
               @schemeVersion can only be used if @scheme is specified.
@@ -1173,11 +1191,13 @@ Suggested values include: 1] sole; 2] major; 3] minor</a:documentation>
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.typed-subtypeTyped-constraint-rule-10">
+            id="Translations-att.typed-subtypeTyped-constraint-rule-10">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@subtype]">
          <sch:assert test="@type">The <sch:name/> element should not be categorized in detail with @subtype unless also categorized in general with @type</sch:assert>
       </sch:rule>
@@ -4534,11 +4554,13 @@ Sample values include: 1] rubbing; 2] mildew; 3] smoke</a:documentation>
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="Mayana-att.calendarSystem-calendar-calendar_attr_on_empty_element-constraint-rule-11">
+            id="Translations-att.calendarSystem-calendar-calendar_attr_on_empty_element-constraint-rule-11">
       <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:functx="http://www.functx.com"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 context="tei:*[@calendar]">
          <sch:assert test="string-length( normalize-space(.) ) gt 0"> @calendar indicates one or more
               systems or calendars to which the date represented by the content of this element belongs,
@@ -4593,9 +4615,11 @@ Suggested values include: 1] page; 2] column; 3] line; 4] book; 5] poem; 6] cant
          <ref name="macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-p-abstractModel-structure-p-in-ab-or-p-constraint-rule-12">
+                  id="Translations-p-abstractModel-structure-p-in-ab-or-p-constraint-rule-12">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:p">
                <sch:report test="(ancestor::tei:ab or ancestor::tei:p) and                        not( ancestor::tei:floatingText                           | parent::tei:exemplum                           | parent::tei:item                           | parent::tei:note                           | parent::tei:q                           | parent::tei:quote                           | parent::tei:remarks                           | parent::tei:said                           | parent::tei:sp                           | parent::tei:stage                           | parent::tei:cell                           | parent::tei:figure )">
           Abstract model violation: Paragraphs may not occur inside other paragraphs or ab elements.
@@ -4604,9 +4628,11 @@ Suggested values include: 1] page; 2] column; 3] line; 4] book; 5] poem; 6] cant
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-p-abstractModel-structure-p-in-l-constraint-rule-13">
+                  id="Translations-p-abstractModel-structure-p-in-l-constraint-rule-13">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:l//tei:p">
                <sch:assert test="ancestor::tei:floatingText | parent::tei:figure | parent::tei:note">
           Abstract model violation: Metrical lines may not contain higher-level structural elements such as div, p, or ab, unless p is a child of figure or note, or is a descendant of floatingText.
@@ -4627,9 +4653,11 @@ Suggested values include: 1] page; 2] column; 3] line; 4] book; 5] poem; 6] cant
          <ref name="macro.phraseSeq"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-foreign-foreign-atts-constraint-rule-14">
+                  id="Translations-foreign-foreign-atts-constraint-rule-14">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="//tei:foreign">
                <sch:assert test="@rend | @xml:lang">
                               A &lt;foreign&gt; element must have either an @xml:lang attribute
@@ -4639,7 +4667,9 @@ Suggested values include: 1] page; 2] column; 3] line; 4] book; 5] poem; 6] cant
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="//tei:foreign[@type]">
                <sch:assert test="@rend">
                               A &lt;foreign&gt; element containing a transliteration must have a 
@@ -4647,14 +4677,18 @@ Suggested values include: 1] page; 2] column; 3] line; 4] book; 5] poem; 6] cant
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="//tei:foreign[@xml:lang/contains(., 'syr')]">
                <sch:assert test="@dir" role="error">
                               Must contain a @dir attribute.
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="//tei:foreign[@xml:lang/not(contains(., 'syr'))]">
                <sch:report test="@dir" role="error">
                               Cannot contain a @dir attribute.
@@ -4933,10 +4967,12 @@ Suggested values include: 1] page; 2] column; 3] line; 4] book; 5] poem; 6] cant
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-quote-source-only_1_ODD_source-constraint-rule-18">
+                  id="Translations-quote-source-only_1_ODD_source-constraint-rule-18">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:*[@source]">
                <sch:let name="srcs" value="tokenize( normalize-space(@source),' ')"/>
                <sch:report test="(   self::tei:classRef                                 | self::tei:dataRef                                 | self::tei:elementRef                                 | self::tei:macroRef                                 | self::tei:moduleRef                                 | self::tei:schemaSpec )                                   and                                   $srcs[2]">
@@ -5033,9 +5069,11 @@ Suggested values include: 1] spoken (spoken); 2] thought (thought); 3] written (
          <ref name="macro.limitedContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-desc-deprecationInfo-only-in-deprecated-constraint-rule-19">
+                  id="Translations-desc-deprecationInfo-only-in-deprecated-constraint-rule-19">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:desc[ @type eq 'deprecationInfo']">
                <sch:assert test="../@validUntil">Information about a
         deprecation should only be present in a specification element
@@ -5132,9 +5170,11 @@ Suggested values include: 1] deprecationInfo (deprecation information)</a:docume
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-rt-target-rt-target-not-span-constraint-rule-20">
+                  id="Translations-rt-target-rt-target-not-span-constraint-rule-20">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:rt/@target">
                <sch:report test="../@from | ../@to">When target= is present, neither from= nor to= should be.</sch:report>
             </sch:rule>
@@ -5149,9 +5189,11 @@ Suggested values include: 1] deprecationInfo (deprecation information)</a:docume
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-rt-from-rt-from-constraint-rule-21">
+                  id="Translations-rt-from-rt-from-constraint-rule-21">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:rt/@from">
                <sch:assert test="../@to">When from= is present, the to= attribute of <sch:name/> is required.</sch:assert>
             </sch:rule>
@@ -5166,9 +5208,11 @@ Suggested values include: 1] deprecationInfo (deprecation information)</a:docume
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-rt-to-rt-to-constraint-rule-22">
+                  id="Translations-rt-to-rt-to-constraint-rule-22">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:rt/@to">
                <sch:assert test="../@from">When to= is present, the from= attribute of <sch:name/> is required.</sch:assert>
             </sch:rule>
@@ -5638,9 +5682,11 @@ Sample values include: 1] suspension (suspension); 2] contraction (contraction);
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-ptr-ptr-atts-constraint-rule-23">
+                  id="Translations-ptr-ptr-atts-constraint-rule-23">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:ptr[@type='noteAnchor']">
                <sch:assert test="substring-after(@xml:id, 'a') eq @n">
                               The portion of the @xml:id attribute after "a" must match the @n attribute: 
@@ -5652,14 +5698,18 @@ Sample values include: 1] suspension (suspension); 2] contraction (contraction);
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:ptr/@xml:id">
                <sch:assert test="starts-with(., 'a')">
                               The @xml:id must begin with "a".
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:ptr/@target">
                <sch:let name="notes" value="//tei:noteGrp//tei:note/@xml:id"/>
                <sch:let name="noteValues" value="for $i in $notes return $i"/>
@@ -5671,9 +5721,11 @@ Sample values include: 1] suspension (suspension); 2] contraction (contraction);
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-ptr-ptrAtts-constraint-rule-26">
+                  id="Translations-ptr-ptrAtts-constraint-rule-26">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:ptr">
                <sch:report test="@target and @cRef">Only one of the attributes @target and @cRef may be supplied on <sch:name/>.</sch:report>
             </sch:rule>
@@ -5735,9 +5787,11 @@ Sample values include: 1] suspension (suspension); 2] contraction (contraction);
          <ref name="macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-ref-refAtts-constraint-rule-27">
+                  id="Translations-ref-refAtts-constraint-rule-27">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:ref">
                <sch:report test="@target and @cRef">Only one of the attributes @target and @cRef may be supplied on <sch:name/>.</sch:report>
             </sch:rule>
@@ -5800,9 +5854,11 @@ Sample values include: 1] suspension (suspension); 2] contraction (contraction);
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-list-gloss-list-must-have-labels-constraint-rule-28">
+                  id="Translations-list-gloss-list-must-have-labels-constraint-rule-28">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:list[@type='gloss']">
                <sch:assert test="tei:label">The content of a "gloss" list should include a sequence of one or more pairs of a label element followed by an item element</sch:assert>
             </sch:rule>
@@ -5944,9 +6000,11 @@ Suggested values include: 1] gloss (gloss); 2] index (index); 3] instructions (i
          </interleave>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-note-note-attrs-constraint-rule-29">
+                  id="Translations-note-note-attrs-constraint-rule-29">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:note">
                <sch:assert test="substring-after(@xml:id, 'n') eq @n">
                               The portion of the @xml:id attribute after "n" must match the @n attribute: 
@@ -5958,14 +6016,18 @@ Suggested values include: 1] gloss (gloss); 2] index (index); 3] instructions (i
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:note/@xml:id">
                <sch:assert test="starts-with(., 'n')">
                               The @xml:id must begin with "n".
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:note/@target">
                <sch:let name="anchors" value="//tei:body//tei:ptr[@type='noteAnchor']/@xml:id"/>
                <sch:let name="anchorValues" value="for $i in $anchors return $i"/>
@@ -6618,9 +6680,11 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-relatedItem-targetorcontent1-constraint-rule-32">
+                  id="Translations-relatedItem-targetorcontent1-constraint-rule-32">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:relatedItem">
                <sch:report test="@target and count( child::* ) &gt; 0">If the @target attribute on <sch:name/> is used, the relatedItem element must be empty</sch:report>
                <sch:assert test="@target or child::*">A relatedItem element should have either a @target attribute or a child element to indicate the related bibliographic item</sch:assert>
@@ -6674,9 +6738,11 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
          </interleave>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-l-abstractModel-structure-l-in-l-constraint-rule-33">
+                  id="Translations-l-abstractModel-structure-l-in-l-constraint-rule-33">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:l">
                <sch:report test="ancestor::tei:l[not(.//tei:note//tei:l[. = current()])]">Abstract model violation: Lines may not contain lines or lg elements.</sch:report>
             </sch:rule>
@@ -6705,18 +6771,22 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-lg-atleast1oflggapl-constraint-rule-34">
+                  id="Translations-lg-atleast1oflggapl-constraint-rule-34">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:lg">
                <sch:assert test="count(descendant::tei:lg|descendant::tei:l|descendant::tei:gap) &gt; 0">An lg element must contain at least one child l, lg, or gap element.</sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-lg-abstractModel-structure-lg-in-l-constraint-rule-35">
+                  id="Translations-lg-abstractModel-structure-lg-in-l-constraint-rule-35">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:lg">
                <sch:report test="ancestor::tei:l[not(.//tei:note//tei:lg[. = current()])]">Abstract model violation: Lines may not contain line groups.</sch:report>
             </sch:rule>
@@ -7449,10 +7519,12 @@ Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7]
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-quotation-quotationContents-constraint-rule-36">
+                  id="Translations-quotation-quotationContents-constraint-rule-36">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:quotation">
                <sch:report test="not( @marks )  and  not( tei:p )">
           On <sch:name/>, either the @marks attribute should be used, or a paragraph of description provided
@@ -7734,20 +7806,24 @@ Sample values include: 1] first-line; 2] first-letter; 3] before; 4] after</a:do
          </attribute>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-citeStructure-match-citestructure-outer-match-constraint-rule-37">
+                  id="Translations-citeStructure-match-citestructure-outer-match-constraint-rule-37">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:citeStructure[not(parent::tei:citeStructure)]">
                <sch:assert test="starts-with(@match,'/')">An XPath in @match on the outer <sch:name/> must start with '/'.</sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-citeStructure-match-citestructure-inner-match-constraint-rule-38">
+                  id="Translations-citeStructure-match-citestructure-inner-match-constraint-rule-38">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:citeStructure[parent::tei:citeStructure]">
                <sch:assert test="not(starts-with(@match,'/'))">An XPath in @match must not start with '/' except on the outer <sch:name/>.</sch:assert>
             </sch:rule>
@@ -8522,10 +8598,12 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-link-linkTargets3-constraint-rule-39">
+                  id="Translations-link-linkTargets3-constraint-rule-39">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:link">
                <sch:assert test="contains(normalize-space(@target),' ')">You must supply at least two values for @target or  on <sch:name/>
                </sch:assert>
@@ -8596,10 +8674,12 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
          </interleave>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-ab-ab-constraint-rule-40">
+                  id="Translations-ab-ab-constraint-rule-40">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:ab">
                <sch:report test="ancestor::teiHeader">
                               The element &lt;ab&gt; is not allowed in the &lt;teiHeader&gt;.
@@ -8608,10 +8688,12 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-ab-ab-atts-constraint-rule-41">
+                  id="Translations-ab-ab-atts-constraint-rule-41">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:text//tei:ab">
                <sch:let name="expectedNumber" value="count(preceding::tei:ab) + 1"/>
                <sch:assert test="number(@n) = $expectedNumber">
@@ -8619,13 +8701,45 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
                               but it should be <sch:value-of select="$expectedNumber"/>.
                            </sch:assert>
             </sch:rule>
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                      context="tei:body//tei:div/child::tei:ab[1]/@xml:id">
+               <sch:let name="parentDivID" value="number(parent::tei:div/@xml:id)"/>
+               <sch:assert test=". = concat($parentDivID, '.1'">
+                              This @xml:id attribute is "<sch:value-of select="."/>" 
+                              but it should be "<sch:value-of select="concat($parentDivID, '.1'"/>".
+                           </sch:assert>
+            </sch:rule>
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                      context="tei:body//tei:div/child::tei:ab[preceding-sibling::tei:ab]">
+               <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
+               <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
+               <sch:let name="previousSequence"
+                        value="number(functx:substring-after-last($previousIDAtt, '.'))"/>
+               <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+               <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
+               <sch:assert test="@xml:id = $expectedIDAtt">
+                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
+                              but in order to match the text structure it should be 
+                              "<sch:value-of select="$expectedIDAtt"/>".
+                           </sch:assert>
+            </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-ab-abstractModel-structure-ab-in-l-constraint-rule-42">
+                  id="Translations-ab-abstractModel-structure-ab-in-l-constraint-rule-44">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:l//tei:ab">
                <sch:assert test="ancestor::tei:floatingText | parent::tei:figure | parent::tei:note">
           Abstract model violation: Metrical lines may not contain higher-level divisions such as p or ab, unless ab is a child of figure or note, or is a descendant of floatingText.
@@ -8828,10 +8942,12 @@ Suggested values include: 1] d (days); 2] h (hours); 3] min (minutes); 4] s (sec
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-join-joinTargets3-constraint-rule-43">
+                  id="Translations-join-joinTargets3-constraint-rule-45">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:join">
                <sch:assert test="contains( normalize-space( @target ),' ')">
           You must supply at least two values for @target on <sch:name/>
@@ -9004,10 +9120,12 @@ Suggested values include: 1] d (days); 2] h (hours); 3] min (minutes); 4] s (sec
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-standOff-nested_standOff_should_be_typed-constraint-rule-44">
+                  id="Translations-standOff-nested_standOff_should_be_typed-constraint-rule-46">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:standOff">
                <sch:assert test="@type or not(ancestor::tei:standOff)">This
         <sch:name/> element must have a @type attribute, since it is
@@ -9496,10 +9614,12 @@ Suggested values include: 1] d (days); 2] h (hours); 3] min (minutes); 4] s (sec
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-persName-ref-ref-on-persName-constraint-rule-45">
+                  id="Translations-persName-ref-ref-on-persName-constraint-rule-47">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="//tei:text//tei:persName/@ref">
                <sch:let name="personIndex"
                         value="doc('https://raw.githubusercontent.com/srophe/syriaca/master/documentation/indexes/persons.xml')"/>
@@ -9621,10 +9741,12 @@ Suggested values include: 1] d (days); 2] h (hours); 3] min (minutes); 4] s (sec
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-placeName-ref-ref-on-placeName-constraint-rule-46">
+                  id="Translations-placeName-ref-ref-on-placeName-constraint-rule-48">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="//tei:text//tei:placeName/@ref">
                <sch:let name="placeIndex"
                         value="doc('https://raw.githubusercontent.com/srophe/syriaca/master/documentation/indexes/places.xml')"/>
@@ -10760,30 +10882,36 @@ Sample values include: 1] e (e); 2] he (he); 3] she (she); 4] they (they)</a:doc
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-relation-ref-or-key-or-name-constraint-rule-47">
+                  id="Translations-relation-ref-or-key-or-name-constraint-rule-49">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:relation">
                <sch:assert test="@ref or @key or @name">One of the attributes @name, @ref or @key must be supplied</sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-relation-active-mutual-constraint-rule-48">
+                  id="Translations-relation-active-mutual-constraint-rule-50">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:relation">
                <sch:report test="@active and @mutual">Only one of the attributes @active and @mutual may be supplied</sch:report>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-relation-active-passive-constraint-rule-49">
+                  id="Translations-relation-active-passive-constraint-rule-51">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:relation">
                <sch:report test="@passive and not(@active)">the attribute @passive may be supplied only if the attribute @active is supplied</sch:report>
             </sch:rule>
@@ -11391,9 +11519,11 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </interleave>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-div-div-atts-constraint-rule-50">
+                  id="Translations-div-div-atts-constraint-rule-52">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:body/tei:div/child::tei:div[@n]">
                <sch:let name="expectedNumber" value="count(preceding-sibling::tei:div[@n]) + 1"/>
                <sch:assert test="number(@n) = $expectedNumber">
@@ -11402,7 +11532,9 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:body/tei:div/child::tei:div[@n]/@xml:id">
                <sch:assert test="substring-after(., 'section-') eq parent::tei:div/@n">
                               The @xml:id is "<sch:value-of select="."/>" but it should be 
@@ -11410,14 +11542,18 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:body/child::tei:div/@xml:id">
                <sch:assert test=". eq parent::tei:div/@type">
                               The @xml:id should be "<sch:value-of select="parent::tei:div/@type"/>".
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][1]">
                <sch:let name="parentDivN" value="number(parent::tei:div/@n)"/>
                <sch:assert test="@n = $parentDivN + .1">
@@ -11426,7 +11562,9 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
                            </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][preceding-sibling::tei:div]">
                <sch:let name="parentDivN" value="parent::tei:div/@n"/>
                <sch:let name="previousNAtt" value="preceding-sibling::tei:div[1]/@n"/>
@@ -11443,9 +11581,11 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-div-abstractModel-structure-div-in-l-constraint-rule-55">
+                  id="Translations-div-abstractModel-structure-div-in-l-constraint-rule-57">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:l//tei:div">
                <sch:assert test="ancestor::tei:floatingText">
           Abstract model violation: Metrical lines may not contain higher-level structural elements such as div, unless div is a descendant of floatingText.
@@ -11454,9 +11594,11 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-56">
+                  id="Translations-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-58">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:div">
                <sch:report test="(ancestor::tei:p or ancestor::tei:ab) and not(ancestor::tei:floatingText)">
           Abstract model violation: p and ab may not contain higher-level structural elements such as div, unless div is a descendant of floatingText.
@@ -12468,10 +12610,12 @@ Suggested values include: 1] main (main); 2] sub (subordinate); 3] alt (alternat
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-facsimile-no_facsimile_text_nodes-constraint-rule-57">
+                  id="Translations-facsimile-no_facsimile_text_nodes-constraint-rule-59">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:facsimile//tei:line | tei:facsimile//tei:zone">
                <sch:report test="child::text()[ normalize-space(.) ne '']">
           A facsimile element represents a text with images, thus
@@ -12607,10 +12751,12 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-path-pathmustnotbeclosed-constraint-rule-58">
+                  id="Translations-path-pathmustnotbeclosed-constraint-rule-60">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:path[@points]">
                <sch:let name="firstPair" value="tokenize( normalize-space( @points ), ' ')[1]"/>
                <sch:let name="lastPair"
@@ -12660,20 +12806,24 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-addSpan-addSpan-requires-spanTo-constraint-rule-59">
+                  id="Translations-addSpan-addSpan-requires-spanTo-constraint-rule-61">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:addSpan">
                <sch:assert test="@spanTo">The @spanTo attribute of <sch:name/> is required.</sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-addSpan-addSpan-requires-spanTo-fr-constraint-rule-60">
+                  id="Translations-addSpan-addSpan-requires-spanTo-fr-constraint-rule-62">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:addSpan">
                <sch:assert test="@spanTo">L'attribut spanTo est requis.</sch:assert>
             </sch:rule>
@@ -12702,20 +12852,24 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-damageSpan-damageSpan-requires-spanTo-constraint-rule-61">
+                  id="Translations-damageSpan-damageSpan-requires-spanTo-constraint-rule-63">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:damageSpan">
                <sch:assert test="@spanTo">The @spanTo attribute of <sch:name/> is required.</sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-damageSpan-damageSpan-requires-spanTo-fr-constraint-rule-62">
+                  id="Translations-damageSpan-damageSpan-requires-spanTo-fr-constraint-rule-64">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:damageSpan">
                <sch:assert test="@spanTo">L'attribut spanTo est requis.</sch:assert>
             </sch:rule>
@@ -12733,20 +12887,24 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-delSpan-delSpan-requires-spanTo-constraint-rule-63">
+                  id="Translations-delSpan-delSpan-requires-spanTo-constraint-rule-65">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:delSpan">
                <sch:assert test="@spanTo">The @spanTo attribute of <sch:name/> is required.</sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-delSpan-delSpan-requires-spanTo-fr-constraint-rule-64">
+                  id="Translations-delSpan-delSpan-requires-spanTo-fr-constraint-rule-66">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:delSpan">
                <sch:assert test="@spanTo">L'attribut spanTo est requis.</sch:assert>
             </sch:rule>
@@ -12915,10 +13073,12 @@ Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNu
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Mayana-subst-substContents1-constraint-rule-65">
+                  id="Translations-subst-substContents1-constraint-rule-67">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:functx="http://www.functx.com"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                       context="tei:subst">
                <sch:assert test="child::tei:add and (child::tei:del or child::tei:surplus)">
                   <sch:name/> must have at least one child add and at least one child del or surplus</sch:assert>
@@ -13164,33 +13324,51 @@ Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNu
       </choice>
    </start>
    <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:functx="http://www.functx.com"
            xmlns:rng="http://relaxng.org/ns/structure/1.0"
            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
            prefix="tei"
            uri="http://www.tei-c.org/ns/1.0"/>
    <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:functx="http://www.functx.com"
            xmlns:rng="http://relaxng.org/ns/structure/1.0"
            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
            prefix="xs"
            uri="http://www.w3.org/2001/XMLSchema"/>
    <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:functx="http://www.functx.com"
            xmlns:rng="http://relaxng.org/ns/structure/1.0"
            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
            prefix="rng"
            uri="http://relaxng.org/ns/structure/1.0"/>
    <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:functx="http://www.functx.com"
            xmlns:rng="http://relaxng.org/ns/structure/1.0"
            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
            prefix="rna"
            uri="http://relaxng.org/ns/compatibility/annotations/1.0"/>
    <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:functx="http://www.functx.com"
            xmlns:rng="http://relaxng.org/ns/structure/1.0"
            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
            prefix="sch"
            uri="http://purl.oclc.org/dsdl/schematron"/>
    <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:functx="http://www.functx.com"
            xmlns:rng="http://relaxng.org/ns/structure/1.0"
            xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
            prefix="sch1x"
            uri="http://www.ascc.net/xml/schematron"/>
+   <sch:ns xmlns="http://www.tei-c.org/ns/1.0"
+           xmlns:functx="http://www.functx.com"
+           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+           uri="http://www.functx.com"
+           prefix="functx"/>
 </grammar>
