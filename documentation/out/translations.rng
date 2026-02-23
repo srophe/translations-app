@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-02-23T21:01:01Z. . 
+Schema generated from ODD source 2026-02-23T21:26:54Z. . 
 TEI Edition: P5 Version 4.10.2. Last updated on 4th September 2025, revision bcfa98f42 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.10.2/ 
   
@@ -8648,7 +8648,7 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-ab-ab-atts-constraint-rule-41">
+                  id="Translations-ab-n-on-ab-constraint-rule-41">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -8660,34 +8660,10 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
                               but it should be <sch:value-of select="$expectedNumber"/>.
                            </sch:assert>
             </sch:rule>
-            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
-                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      xmlns:xi="http://www.w3.org/2001/XInclude"
-                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[preceding-sibling::tei:ab]">
-               <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
-               <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
-               <sch:let name="previousSequence"
-                        value="number(tokenize($previousIDAtt, '\.')[last()])"/>
-               <sch:let name="expectedSequence" value="$previousSequence + 1"/>
-               <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
-               <sch:assert test="@xml:id = $expectedIDAtt">
-                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
-                              but in order to match the text structure it should be 
-                              "<sch:value-of select="$expectedIDAtt"/>".
-                           </sch:assert>
-            </sch:rule>
-            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
-                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      xmlns:xi="http://www.w3.org/2001/XInclude"
-                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[1]/@xml:id">
-               <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
-               <sch:assert test=". = concat($parentDivID, '.1')">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "<sch:value-of select="concat($parentDivID, '.1')"/>".
-                           </sch:assert>
-            </sch:rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  id="Translations-ab-ID-on-ab-solo-div-constraint-rule-42">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -8714,6 +8690,38 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
                <sch:assert test=". = concat($parentDivID, '-1')">
                               This @xml:id attribute is "<sch:value-of select="."/>" 
                               but it should be "<sch:value-of select="concat($parentDivID, '-1')"/>".
+                           </sch:assert>
+            </sch:rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                  id="Translations-ab-ID-on-ab-multiple-div-constraint-rule-44">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                      context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[preceding-sibling::tei:ab]">
+               <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
+               <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
+               <sch:let name="previousSequence"
+                        value="number(tokenize($previousIDAtt, '\.')[last()])"/>
+               <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+               <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
+               <sch:assert test="@xml:id = $expectedIDAtt">
+                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
+                              but in order to match the text structure it should be 
+                              "<sch:value-of select="$expectedIDAtt"/>".
+                           </sch:assert>
+            </sch:rule>
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xi="http://www.w3.org/2001/XInclude"
+                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                      context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[1]/@xml:id">
+               <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
+               <sch:assert test=". = concat($parentDivID, '.1')">
+                              This @xml:id attribute is "<sch:value-of select="."/>" 
+                              but it should be "<sch:value-of select="concat($parentDivID, '.1')"/>".
                            </sch:assert>
             </sch:rule>
          </pattern>
