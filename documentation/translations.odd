@@ -173,31 +173,71 @@
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
-                  <constraintSpec ident="div-atts" scheme="schematron">
+                  <constraintSpec ident="divAtts" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:body/tei:div/child::tei:div[@n]">
-                           <sch:let name="expectedNumber" value="count(preceding-sibling::tei:div[@n]) + 1"/>
-                           <sch:assert test="number(@n) = $expectedNumber">
-                              The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
-                              but it should be "<sch:value-of select="$expectedNumber"/>".
-                           </sch:assert>
-                           <sch:report test="@type='conclusion' or @type='introduction' or @type='trailer' or @type='work'">
-                              
+                        <sch:rule context="tei:body//tei:div[@type = 'conclusion']">
+                           <sch:report test="@n">
+                              An @n attribute not allowed here. If a portion of text should appear 
+                              in a &lt;div&gt; that needs an @n attribute, put that section of text 
+                              into a &lt;div&gt; with a @type attribute having the value "section".
                            </sch:report>
+                           <sch:assert test="@xml:id='conclusion'">
+                              This &lt;div&gt; element must have an @xml:id attribute with the value "work".
+                           </sch:assert>
                         </sch:rule>
+                        <sch:rule context="tei:body//tei:div[@type = 'introduction']">
+                           <sch:report test="@n">
+                              An @n attribute not allowed here. If a portion of text should appear 
+                              in a &lt;div&gt; that needs an @n attribute, put that section of text 
+                              into a &lt;div&gt; with a @type attribute having the value "section".
+                           </sch:report>
+                           <sch:assert test="@xml:id='intro'">
+                              This &lt;div&gt; element must have an @xml:id attribute with the value "intro".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div[@type = 'section']">
+                           <sch:assert test="@n">
+                              A &lt;div&gt; with a @type attribute having the value "section" requires
+                              an @n attribute.
+                           </sch:assert>
+                           <sch:assert test="starts-with(@xml:id, 'section')">
+                              This &lt;div&gt; element must have an @xml:id attribute that starts with "section".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div[@type = 'trailer']">
+                           <sch:report test="@n">
+                              An @n attribute not allowed here. If a portion of text should appear 
+                              in a &lt;div&gt; that needs an @n attribute, put that section of text 
+                              into a &lt;div&gt; with a @type attribute having the value "section".
+                           </sch:report>
+                           <sch:assert test="@xml:id='trailer'">
+                              This &lt;div&gt; element must have an @xml:id attribute with the value "trailer".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div[@type = 'work']">
+                           <sch:report test="@n">
+                              A &lt;div&gt; with a @type attribute having the value "work" cannot have an 
+                              @n attribute.
+                           </sch:report>
+                           <sch:assert test="@xml:id='work'">
+                              This &lt;div&gt; element must have an @xml:id attribute with the value "work".
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="xmlID-on-div" scheme="schematron">
+                     <constraint>
                         <sch:rule context="tei:body/tei:div/child::tei:div[@n]/@xml:id">
                            <sch:assert test="substring-after(., 'section-') eq parent::tei:div/@n">
                               The @xml:id is "<sch:value-of select="."/>" but it should be 
                               "<sch:value-of select="concat('section-', parent::tei:div/@n)"/>".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:body/child::tei:div">
-                           <sch:assert test="@type='work' and @xml:id='work'">
-                              The &lt;div&gt; child of &lt;body&gt; must have @type and @xml:id 
-                              attributes, both with value "work".
-                           </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][1]">
+                     </constraint>
+                  </constraintSpec>
+                  <constraintSpec ident="n-on-div" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:body/tei:div/tei:div[@n]/descendant::tei:div[@n][1]">
                            <sch:let name="parentDivN" value="number(parent::tei:div/@n)"/>
                            <sch:assert test="@n = $parentDivN + .1">
                               The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
@@ -213,19 +253,6 @@
                            <sch:assert test="@n = $expectedNAtt">
                               The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
                               but it should be "<sch:value-of select="$expectedNAtt"/>".
-                           </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:body//tei:div[not(@type='section')]">
-                           <sch:report test="@n">
-                              An @n attribute not allowed here. If a portion of text should appear 
-                              in a &lt;div&gt; that needs an @n attribute, put that section of text 
-                              into a &lt;div&gt; with a @type attribute having the value "section".
-                           </sch:report>
-                        </sch:rule>
-                        <sch:rule context="tei:body//tei:div[@type = 'section']">
-                           <sch:assert test="./@n">
-                              a &lt;div&gt; with a @type attribute having the value "section" requires
-                              an @n attribute.
                            </sch:assert>
                         </sch:rule>
                      </constraint>
