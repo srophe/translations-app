@@ -90,15 +90,7 @@
                               but it should be <sch:value-of select="$expectedNumber"/>.
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:body/child::tei:div">
-                           <sch:assert test="@xml:id = 'work'">
-                              The child of &lt;body&gt; must be a &lt;div&gt; with @type attribute of "work".
-                           </sch:assert>
-                           <sch:report test="tei:div/@xml:id='work'">
-                              This &lt;div&gt; cannot have a @type attribute of "work".
-                           </sch:report>
-                        </sch:rule>
-                        <sch:rule context="tei:body//tei:div/child::tei:ab[preceding-sibling::tei:ab]">
+                        <sch:rule context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[preceding-sibling::tei:ab]">
                            <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
                            <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
                            <sch:let name="previousSequence" value="number(tokenize($previousIDAtt, '\.')[last()])"/>
@@ -110,11 +102,30 @@
                               "<sch:value-of select="$expectedIDAtt"/>".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:body//tei:div/child::tei:ab[1]/@xml:id">
+                        <sch:rule context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[1]/@xml:id">
                            <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
                            <sch:assert test=". = concat($parentDivID, '.1')">
                               This @xml:id attribute is "<sch:value-of select="."/>" 
                               but it should be "<sch:value-of select="concat($parentDivID, '.1')"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div[not(contains(@xml:id, '-'))]/child::tei:ab[preceding-sibling::tei:ab]">
+                           <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
+                           <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
+                           <sch:let name="previousSequence" value="number(replace($previousIDAtt, '\D+', ''))"/>
+                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+                           <sch:let name="expectedIDAtt" value="concat($parentID, '-', $expectedSequence)"/>
+                           <sch:assert test="@xml:id = $expectedIDAtt">
+                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
+                              but in order to match the text structure it should be 
+                              "<sch:value-of select="$expectedIDAtt"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div[not(contains(@xml:id, '-'))]/child::tei:ab[1]/@xml:id">
+                           <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
+                           <sch:assert test=". = concat($parentDivID, '-1')">
+                              This @xml:id attribute is "<sch:value-of select="."/>" 
+                              but it should be "<sch:value-of select="concat($parentDivID, '-1')"/>".
                            </sch:assert>
                         </sch:rule>
                      </constraint>
@@ -198,11 +209,19 @@
                            <sch:assert test="@n = $expectedNAtt">
                               The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
                               but it should be "<sch:value-of select="$expectedNAtt"/>".
-                              <!--ParentDivN: <sch:value-of select="$parentDivN"/>
-                PreviousNAtt: <sch:value-of select="$previousNAtt"/>
-                PreviousSequence: <sch:value-of select="$previousSequence"/>
-                ExpectedSequence: <sch:value-of select="$expectedSequence"/>
-                ExpectedNAtt: <sch:value-of select="$expectedNAtt"/>-->
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div[not(@type='section')]">
+                           <sch:report test="@n">
+                              An @n attribute not allowed here. If a portion of text should appear 
+                              in a &lt;div&gt; that needs an @n attribute, put that section of text 
+                              into a &lt;div&gt; with a @type attribute having the value "section".
+                           </sch:report>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div[@type='section']">
+                           <sch:assert test="@n">
+                              A &lt;div&gt; with a @type attribute having the value "section" requires
+                              an @n attribute.
                            </sch:assert>
                         </sch:rule>
                      </constraint>
@@ -223,7 +242,8 @@
                               it's own right.</desc>
                            </valItem>
                            <valItem ident="section">
-                              <desc>A section of text.</desc>
+                              <desc>A section of text; either an unnumbered text with only one section or a 
+                              numbered section of a text.</desc>
                            </valItem>
                            <valItem ident="trailer">
                               <desc>A short conclusion to a collection of works not a part of a single
