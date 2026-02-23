@@ -90,12 +90,13 @@
                               but it should be <sch:value-of select="$expectedNumber"/>.
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:body//tei:div/child::tei:ab[1]/@xml:id">
-                           <sch:let name="parentDivID" value="parent::tei:div/@xml:id"/>
-                           <sch:assert test=". = concat($parentDivID, '.1')">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "<sch:value-of select="concat($parentDivID, '.1'"/>".
+                        <sch:rule context="tei:body/child::tei:div">
+                           <sch:assert test="@type = 'work'">
+                              The child of &lt;body&gt; must be a &lt;div&gt; with @type attribute of "work".
                            </sch:assert>
+                           <sch:report test="tei:div/@type='work'">
+                              This &lt;div&gt; cannot have a @type attribute of "work".
+                           </sch:report>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div/child::tei:ab[preceding-sibling::tei:ab]">
                            <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
@@ -107,6 +108,13 @@
                               The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
                               but in order to match the text structure it should be 
                               "<sch:value-of select="$expectedIDAtt"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:div/child::tei:ab[1]/@xml:id">
+                           <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
+                           <sch:assert test=". = concat($parentDivID, '.1')">
+                              This @xml:id attribute is "<sch:value-of select="."/>" 
+                              but it should be "<sch:value-of select="concat($parentDivID, '.1')"/>".
                            </sch:assert>
                         </sch:rule>
                      </constraint>
