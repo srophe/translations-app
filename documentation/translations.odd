@@ -91,10 +91,10 @@
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body/child::tei:div">
-                           <sch:assert test="@type = 'work'">
+                           <sch:assert test="@xml:id = 'work'">
                               The child of &lt;body&gt; must be a &lt;div&gt; with @type attribute of "work".
                            </sch:assert>
-                           <sch:report test="tei:div/@type='work'">
+                           <sch:report test="tei:div/@xml:id='work'">
                               This &lt;div&gt; cannot have a @type attribute of "work".
                            </sch:report>
                         </sch:rule>
