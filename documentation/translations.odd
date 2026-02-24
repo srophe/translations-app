@@ -205,10 +205,6 @@
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'section']">
-                           <!--<sch:assert test="@n">
-                              A &lt;div&gt; with a @type attribute having the value "section" requires
-                              an @n attribute.
-                           </sch:assert>-->
                            <sch:assert test="starts-with(@xml:id, 'section')">
                               This &lt;div&gt; element must have an @xml:id attribute that starts with "section".
                            </sch:assert>
@@ -246,10 +242,17 @@
                   </constraintSpec>
                   <constraintSpec ident="n-on-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:body//tei:div[@type = 'section'][not(following-sibling::tei:div[@type = 'section'])][not(child::tei:div[@type = 'section'])]">
+                        <!--<sch:rule context="
+                           tei:body//tei:div[@type = 'section'][following-sibling::tei:div[@type = 'section']] |
+                           tei:body//tei:div[@type = 'section'][child::tei:div[@type = 'section']]">
                            <sch:assert test="@n">
                               This &lt;div&gt; requires an @n attribute.
                            </sch:assert>
+                        </sch:rule>-->
+                        <sch:rule context="tei:body/child::tei:div[@type='work']/child::tei:div[@type='section'][not(following-sibling::tei:div[@type='section'])]">
+                           <sch:report test="@n">
+                              This &lt;div&gt; cannot have an @n attribute.
+                           </sch:report>
                         </sch:rule>
                         <sch:rule context="tei:body/tei:div/tei:div[@n]/descendant::tei:div[@n][1]">
                            <sch:let name="parentDivN" value="number(parent::tei:div/@n)"/>
