@@ -246,7 +246,7 @@
                   </constraintSpec>
                   <constraintSpec ident="n-on-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:body//tei:div[@type = 'section'][not(following::tei:div[@type = 'section'])][not(child::tei:div[@type = 'section'])]">
+                        <sch:rule context="tei:body//tei:div[@type = 'section'][not(following-sibling::tei:div[@type = 'section'])][not(child::tei:div[@type = 'section'])]">
                            <sch:assert test="@n">
                               This &lt;div&gt; requires an @n attribute.
                            </sch:assert>
