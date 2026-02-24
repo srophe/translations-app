@@ -75,7 +75,7 @@
                   <constraintSpec ident="ab" scheme="schematron">
                      <constraint>
                         <sch:rule context="tei:ab">
-                           <sch:report test="ancestor::teiHeader">
+                           <sch:report test="ancestor::tei:teiHeader">
                               The element &lt;ab&gt; is not allowed in the &lt;teiHeader&gt;.
                            </sch:report>
                         </sch:rule>
