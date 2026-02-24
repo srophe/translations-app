@@ -195,11 +195,11 @@
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'introduction']">
-                           <sch:report test="@n">
+                           <!--<sch:report test="@n">
                               An @n attribute not allowed here. If a portion of text should appear 
                               in a &lt;div&gt; that needs an @n attribute, put that section of text 
                               into a &lt;div&gt; with a @type attribute having the value "section".
-                           </sch:report>
+                           </sch:report>-->
                            <sch:assert test="@xml:id='intro'">
                               This &lt;div&gt; element must have an @xml:id attribute with the value "intro".
                            </sch:assert>
