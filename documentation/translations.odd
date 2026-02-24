@@ -195,20 +195,20 @@
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'introduction']">
-                           <!--<sch:report test="@n">
+                           <sch:report test="@n">
                               An @n attribute not allowed here. If a portion of text should appear 
                               in a &lt;div&gt; that needs an @n attribute, put that section of text 
                               into a &lt;div&gt; with a @type attribute having the value "section".
-                           </sch:report>-->
+                           </sch:report>
                            <sch:assert test="@xml:id='intro'">
                               This &lt;div&gt; element must have an @xml:id attribute with the value "intro".
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'section']">
-                           <sch:assert test="@n">
+                           <!--<sch:assert test="@n">
                               A &lt;div&gt; with a @type attribute having the value "section" requires
                               an @n attribute.
-                           </sch:assert>
+                           </sch:assert>-->
                            <sch:assert test="starts-with(@xml:id, 'section')">
                               This &lt;div&gt; element must have an @xml:id attribute that starts with "section".
                            </sch:assert>
@@ -246,6 +246,11 @@
                   </constraintSpec>
                   <constraintSpec ident="n-on-div" scheme="schematron">
                      <constraint>
+                        <sch:rule context="tei:body//tei:div[@type = 'section'][not(sibling::tei:div[@type = 'section'])][not(child::tei:div[@type = 'section'])]">
+                           <sch:assert test="@n">
+                              This &lt;div&gt; requires an @n attribute.
+                           </sch:assert>
+                        </sch:rule>
                         <sch:rule context="tei:body/tei:div/tei:div[@n]/descendant::tei:div[@n][1]">
                            <sch:let name="parentDivN" value="number(parent::tei:div/@n)"/>
                            <sch:assert test="@n = $parentDivN + .1">
