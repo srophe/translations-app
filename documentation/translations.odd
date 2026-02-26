@@ -136,7 +136,6 @@
                               but it should be "<sch:value-of select="concat($parentDivID, '.1')"/>".
                            </sch:assert>
                         </sch:rule>
-                        
                      </constraint>
                   </constraintSpec>
                   <attList>
@@ -434,11 +433,54 @@
                         <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
-                  <!--
-                     @xml:id required, value = "[roman #].\d+". Roman # might need to accommodate multiple layers of section numbers.
-                     @n required, value = [# equaling roman num on id].\d+ = id substring-after .]
-                     
-                  -->
+                  <constraintSpec ident="Atts-on-l" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:text//tei:l">
+                           <sch:let name="expectedNumber" value="count(preceding::tei:l) + 1"/>
+                           <sch:assert test="number(@n) = $expectedNumber">
+                              The element &lt;l&gt; is out of sequence. The @n attribute is numbered <sch:value-of select="@n"/> 
+                              but it should be <sch:value-of select="$expectedNumber"/>.
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:lg[not(contains(@xml:id, '-'))]/child::tei:l[preceding-sibling::tei:l]">
+                           <sch:let name="parentID" value="parent::tei:lg/@xml:id"/>
+                           <sch:let name="previousIDAtt" value="preceding-sibling::tei:lg[1]/@xml:id"/>
+                           <sch:let name="previousSequence" value="number(replace($previousIDAtt, '\D+', ''))"/>
+                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+                           <sch:let name="expectedIDAtt" value="concat($parentID, '-', $expectedSequence)"/>
+                           <sch:assert test="@xml:id = $expectedIDAtt">
+                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
+                              but in order to match the text structure it should be 
+                              "<sch:value-of select="$expectedIDAtt"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:lg[not(contains(@xml:id, '-'))]/child::tei:l[1]/@xml:id">
+                           <sch:assert test=". = concat('line', '-1')">
+                              This @xml:id attribute is "<sch:value-of select="."/>" 
+                              but it should be "<sch:value-of select="concat('line', '-1')"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:lg[contains(@xml:id, '-')]/child::tei:l[preceding-sibling::tei:l]">
+                           <sch:let name="parentID" value="parent::tei:lg/@xml:id"/>
+                           <sch:let name="previousIDAtt" value="preceding-sibling::tei:l[1]/@xml:id"/>
+                           <sch:let name="previousSequence" value="number(tokenize($previousIDAtt, '\.')[last()])"/>
+                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+                           <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
+                           <sch:assert test="@xml:id = $expectedIDAtt">
+                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
+                              but in order to match the text structure it should be 
+                              "<sch:value-of select="$expectedIDAtt"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:body//tei:lg[contains(@xml:id, '-')]/child::tei:l[1]/@xml:id">
+                           <sch:let name="parentLgID" value="substring-after(parent::tei:l/parent::tei:lg/@xml:id, '-')"/>
+                           <sch:assert test=". = concat('line-', $parentLgID, '.1')">
+                              This @xml:id attribute is "<sch:value-of select="."/>" 
+                              but it should be "<sch:value-of select="concat('line-', $parentLgID, '.1')"/>".
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                </elementSpec>
                
                
@@ -450,11 +492,57 @@
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
                      </alternate>
                   </content>
-                  <!--
-                     @xml:id required, value = "[roman #].\d+". Roman # might need to accommodate multiple layers of section numbers.
-                     @n required, value = [# equaling roman num on id].\d+ = id substring-after .]
-                     
-                  -->
+                  <constraintSpec ident="atts-on-lg" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:body//*[@n]//tei:lg[position() = 1]">
+                           <sch:let name="parentLgN" value="parent::node()/@n"/>
+                           <sch:assert test="@n = concat($parentLgN, '.1')">
+                              The element &lt;lg&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
+                              but it should be "<sch:value-of select="concat($parentLgN, '.1')"/>".
+                           </sch:assert>
+                           <sch:assert test="@xml:id = concat('section-', @n)">
+                              The @xml:id is "<sch:value-of select="@xml:id"/>" but it should be 
+                              "<sch:value-of select="concat('section-', @n)"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        
+                        <sch:rule context="tei:body//tei:lg[not(ancestor::*/@n)][1][following-sibling::tei:lg]">
+                           <sch:assert test="@n = 1">
+                              The element &lt;lg&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
+                              but it should be "1"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        
+                        <sch:rule context="tei:body//tei:lg[not(ancestor::*/@n)][preceding-sibling::tei:lg]">
+                           <sch:assert test="@n = preceding-sibling::tei:lg/@n + 1">
+                              The element &lt;lg&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
+                              but it should be "<sch:value-of select="preceding-sibling::tei:lg/@n + 1"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        
+                        <sch:rule context="tei:body//tei:lg[count(//tei:lg) = 1][not(@n)]">
+                           <sch:assert test="@xml:id = 'section'">
+                              The @xml:id must be "section".
+                           </sch:assert>
+                        </sch:rule>
+                        
+                        <sch:rule context="tei:body//*[@n]//tei:lg[position() > 1]">
+                           <sch:let name="parentLgN" value="parent::*/@n"/>
+                           <sch:let name="previousNAtt" value="preceding-sibling::tei:lg[1]/@n"/>
+                           <sch:let name="previousSequence" value="number(tokenize($previousNAtt, '\.')[last()])"/>
+                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
+                           <sch:let name="expectedNAtt" value="concat($parentLgN, '.', $expectedSequence)"/>
+                           <sch:assert test="@n = $expectedNAtt">
+                              The element &lt;lg&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
+                              but it should be "<sch:value-of select="$expectedNAtt"/>".
+                           </sch:assert>
+                           <sch:assert test="@xml:id = concat('section-', @n)">
+                              The @xml:id is "<sch:value-of select="@xml:id"/>" but it should be 
+                              "<sch:value-of select="concat('section-', @n)"/>".
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                </elementSpec>
                
                
@@ -694,6 +782,10 @@
                         </datatype>
                      </attDef>
                   </attList>
+               </elementSpec>
+               
+               <elementSpec ident="trailer" module="textstructure" mode="change">
+                  <!-- constrain attributes -->
                </elementSpec>
                
                
