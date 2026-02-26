@@ -514,9 +514,9 @@
                         </sch:rule>
                         
                         <sch:rule context="tei:body//tei:lg[not(ancestor::*/@n)][preceding-sibling::tei:lg]">
-                           <sch:assert test="@n = preceding-sibling::tei:lg/@n + 1">
+                           <sch:assert test="@n = preceding-sibling::tei:lg[1]/@n + 1">
                               The element &lt;lg&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
-                              but it should be "<sch:value-of select="preceding-sibling::tei:lg/@n + 1"/>".
+                              but it should be "<sch:value-of select="preceding-sibling::tei:lg[1]/@n + 1"/>".
                            </sch:assert>
                         </sch:rule>
                         
