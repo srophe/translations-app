@@ -566,13 +566,14 @@
                   <constraintSpec ident="note-attrs" scheme="schematron">
                      <constraint>
                         <sch:rule context="tei:note">
+                           <sch:assert test="number(replace(@n, '\D+', '')) = count(preceding-sibling::tei:note) + 1">
+                              This @n attribute should be "<sch:value-of select="count(preceding-sibling::tei:note) + 1"/>".
+                           </sch:assert>
                            <sch:assert test="substring-after(@xml:id, 'n') eq @n">
-                              The portion of the @xml:id attribute after "n" must match the @n attribute: 
-                              "<sch:value-of select="@n"/>".
+                              The portion of the @xml:id attribute must be "n<sch:value-of select="@n"/>". 
                            </sch:assert>
                            <sch:assert test="substring-after(@target, '#a') eq @n">
-                              The portion of the @target attribute after "#a" must match the @n attribute: 
-                              "<sch:value-of select="@n"/>".
+                              The portion of the @target attribute must be "#a<sch:value-of select="@n"/>".
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:note/@xml:id">
@@ -698,13 +699,15 @@
                   <constraintSpec ident="ptr-atts" scheme="schematron">
                      <constraint>
                         <sch:rule context="tei:ptr[@type='noteAnchor']">
+                           <sch:assert test="number(replace(@n, '\D+', '')) = count(preceding::tei:ptr[@type='noteAnchor']) + 1">
+                              This @n attribute should be "<sch:value-of select="count(preceding::tei:ptr[@type='noteAnchor']) + 1"/>".
+                           </sch:assert>
                            <sch:assert test="substring-after(@xml:id, 'a') eq @n">
-                              The portion of the @xml:id attribute after "a" must match the @n attribute: 
-                              "<sch:value-of select="@n"/>".
+                              The portion of the @xml:id attribute must be "a<sch:value-of select="@n"/>". 
+                              .
                            </sch:assert>
                            <sch:assert test="substring-after(@target, '#n') eq @n">
-                              The portion of the @target attribute after "#n" must match the @n attribute: 
-                              "<sch:value-of select="@n"/>".
+                              The portion of the @target attribute must be "#n<sch:value-of select="@n"/>".
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:ptr/@xml:id">
@@ -718,7 +721,7 @@
                            <sch:assert test="
                               every $i in substring-after(., '#')
                               satisfies $i = $noteValues">
-                              This @target attribute, <sch:value-of select="."/>, does not point to an existing @xml:id on 
+                              This @target attribute, <sch:value-of select="."/>, must point to an existing @xml:id on 
                               a &lt;note&gt; element.
                            </sch:assert>
                         </sch:rule>
