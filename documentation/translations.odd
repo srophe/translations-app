@@ -565,7 +565,7 @@
                   
                   <constraintSpec ident="note-attrs" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:note">
+                        <sch:rule context="tei:text//tei:note">
                            <sch:assert test="number(replace(@n, '\D+', '')) = count(preceding-sibling::tei:note) + 1">
                               This @n attribute should be "<sch:value-of select="count(preceding-sibling::tei:note) + 1"/>".
                            </sch:assert>
@@ -576,12 +576,12 @@
                               The portion of the @target attribute must be "#a<sch:value-of select="@n"/>".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:note/@xml:id">
+                        <sch:rule context="tei:text//tei:note/@xml:id">
                            <sch:assert test="starts-with(., 'n')">
                               The @xml:id must begin with "n".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:note/@target">
+                        <sch:rule context="tei:text//tei:note/@target">
                            <sch:let name="anchors" value="//tei:body//tei:ptr[@type='noteAnchor']/@xml:id"/>
                            <sch:let name="anchorValues" value="for $i in $anchors return $i"/>
                            <sch:assert test="
@@ -698,7 +698,7 @@
                <elementSpec ident="ptr" module="core" mode="change">
                   <constraintSpec ident="ptr-atts" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:ptr[@type='noteAnchor']">
+                        <sch:rule context="tei:text//tei:ptr[@type='noteAnchor']">
                            <sch:assert test="number(replace(@n, '\D+', '')) = count(preceding::tei:ptr[@type='noteAnchor']) + 1">
                               This @n attribute should be "<sch:value-of select="count(preceding::tei:ptr[@type='noteAnchor']) + 1"/>".
                            </sch:assert>
@@ -710,12 +710,12 @@
                               The portion of the @target attribute must be "#n<sch:value-of select="@n"/>".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:ptr/@xml:id">
+                        <sch:rule context="tei:text//tei:ptr/@xml:id">
                            <sch:assert test="starts-with(., 'a')">
                               The @xml:id must begin with "a".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:ptr/@target">
+                        <sch:rule context="tei:text//tei:ptr/@target">
                            <sch:let name="notes" value="//tei:noteGrp//tei:note/@xml:id"/>
                            <sch:let name="noteValues" value="for $i in $notes return $i"/>
                            <sch:assert test="
