@@ -692,15 +692,15 @@
                   <constraintSpec ident="ptr-atts" scheme="schematron">
                      <constraint>
                         <sch:rule context="tei:text//tei:ptr">
-                           <sch:report test="@xml:id">
+                           <sch:assert test="@xml:id">
                               This &lt;ptr&gt; element requires an @xml:id attribute.
-                           </sch:report>
-                           <sch:report test="@target">
+                           </sch:assert>
+                           <sch:assert test="@target">
                               This &lt;ptr&gt; element requires a @target attribute.
-                           </sch:report>
-                           <sch:report test="@type='noteAnchor'">
+                           </sch:assert>
+                           <sch:assert test="@type='noteAnchor'">
                               This &lt;ptr&gt; element requires a @type attribute with value "noteAnchor".
-                           </sch:report>
+                           </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:text//tei:ptr[@type='noteAnchor']">
                            <sch:assert test="number(replace(@n, '\D+', '')) = count(preceding::tei:ptr[@type='noteAnchor']) + 1">
