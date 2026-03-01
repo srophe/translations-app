@@ -593,13 +593,6 @@
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
-                  
-                  <attList>
-                     <!-- Is there an attribute that can point back to the anchor? -->
-                     <!-- Is there an attribute that can apply an alt numbering system? -->
-                     <attDef ident="xml:id" usage="req" mode="change"/>
-                     <attDef ident="n" usage="req" mode="change"></attDef>
-                  </attList>
                </elementSpec>
                
                
@@ -698,13 +691,23 @@
                <elementSpec ident="ptr" module="core" mode="change">
                   <constraintSpec ident="ptr-atts" scheme="schematron">
                      <constraint>
+                        <sch:rule context="tei:text//tei:ptr">
+                           <sch:report test="@xml:id">
+                              This &lt;ptr&gt; element requires an @xml:id attribute.
+                           </sch:report>
+                           <sch:report test="@target">
+                              This &lt;ptr&gt; element requires a @target attribute.
+                           </sch:report>
+                           <sch:report test="@type='noteAnchor'">
+                              This &lt;ptr&gt; element requires a @type attribute with value "noteAnchor".
+                           </sch:report>
+                        </sch:rule>
                         <sch:rule context="tei:text//tei:ptr[@type='noteAnchor']">
                            <sch:assert test="number(replace(@n, '\D+', '')) = count(preceding::tei:ptr[@type='noteAnchor']) + 1">
                               This @n attribute should be "<sch:value-of select="count(preceding::tei:ptr[@type='noteAnchor']) + 1"/>".
                            </sch:assert>
                            <sch:assert test="substring-after(@xml:id, 'a') eq @n">
-                              The portion of the @xml:id attribute must be "a<sch:value-of select="@n"/>". 
-                              .
+                              The portion of the @xml:id attribute must be "a<sch:value-of select="@n"/>".
                            </sch:assert>
                            <sch:assert test="substring-after(@target, '#n') eq @n">
                               The portion of the @target attribute must be "#n<sch:value-of select="@n"/>".
@@ -727,21 +730,6 @@
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
-                  <attList>
-                     <attDef ident="type" usage="req" mode="change">
-                        <valList type="closed">
-                           <valItem ident="noteAnchor">
-                              <desc>Anchor in the text used to point to a note</desc>
-                           </valItem>
-                        </valList>
-                     </attDef>
-                     <attDef ident="xml:id" usage="req" mode="change"/>
-                     <attDef ident="target" usage="req" mode="change">
-                        <datatype minOccurs="1" maxOccurs="unbounded">
-                           <dataRef key="teidata.pointer"/>
-                        </datatype>
-                     </attDef>
-                  </attList>
                </elementSpec>
                
                
