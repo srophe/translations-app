@@ -219,11 +219,11 @@
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'work']">
-                           <sch:report test="@n">
+                           <!--<sch:report test="@n">
                               A &lt;div&gt; with a @type attribute having the value "work" cannot have an 
                               @n attribute.
                            </sch:report>
-                           <sch:assert test="@xml:id='work'">
+                           --><sch:assert test="@xml:id='work'">
                               This &lt;div&gt; element must have an @xml:id attribute with the value "work".
                            </sch:assert>
                         </sch:rule>
@@ -251,11 +251,11 @@
                               This &lt;div&gt; requires an @n attribute.
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:body/child::tei:div[@type='work']/child::tei:div[@type='section'][not(following-sibling::tei:div[@type='section'])]">
+                        <!--<sch:rule context="tei:body/child::tei:div[@type='work']/child::tei:div[@type='section'][not(following-sibling::tei:div[@type='section'])]">
                            <sch:report test="@n">
                               This &lt;div&gt; cannot have an @n attribute.
                            </sch:report>
-                        </sch:rule>
+                        </sch:rule>-->
                         <sch:rule context="tei:body/tei:div/tei:div[@n]/descendant::tei:div[@n][1]">
                            <sch:let name="parentDivN" value="number(parent::tei:div/@n)"/>
                            <sch:assert test="@n = $parentDivN + .1">
