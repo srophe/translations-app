@@ -189,8 +189,8 @@
                               in a &lt;div&gt; that needs an @n attribute, put that section of text 
                               into a &lt;div&gt; with a @type attribute having the value "section".
                            </sch:report>
-                           <sch:assert test="@xml:id='conclusion'">
-                              This &lt;div&gt; element must have an @xml:id attribute with the value "work".
+                           <sch:assert test="starts-with(@xml:id, 'conclusion')">
+                              This &lt;div&gt; element must have an @xml:id attribute with the value "conclusion".
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'introduction']">
@@ -199,8 +199,8 @@
                               in a &lt;div&gt; that needs an @n attribute, put that section of text 
                               into a &lt;div&gt; with a @type attribute having the value "section".
                            </sch:report>
-                           <sch:assert test="@xml:id='intro'">
-                              This &lt;div&gt; element must have an @xml:id attribute with the value "intro".
+                           <sch:assert test="starts-with(@xml:id, 'introduction')">
+                              This &lt;div&gt; element must have an @xml:id attribute with the value "introduction".
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'section']">
@@ -214,16 +214,12 @@
                               in a &lt;div&gt; that needs an @n attribute, put that section of text 
                               into a &lt;div&gt; with a @type attribute having the value "section".
                            </sch:report>
-                           <sch:assert test="@xml:id='trailer'">
+                           <sch:assert test="starts-with(@xml:id, 'trailer')'">
                               This &lt;div&gt; element must have an @xml:id attribute with the value "trailer".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:body//tei:div[@type = 'work']">
-                           <!--<sch:report test="@n">
-                              A &lt;div&gt; with a @type attribute having the value "work" cannot have an 
-                              @n attribute.
-                           </sch:report>
-                           --><sch:assert test="@xml:id='work'">
+                        <sch:rule context="tei:body//tei:div[@type = 'work'][not(@n)]">
+                           <sch:assert test="@xml:id='work'">
                               This &lt;div&gt; element must have an @xml:id attribute with the value "work".
                            </sch:assert>
                         </sch:rule>
@@ -231,10 +227,20 @@
                   </constraintSpec>
                   <constraintSpec ident="xmlID-on-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:body/tei:div/child::tei:div[@n]/@xml:id">
-                           <sch:assert test="substring-after(., 'section-') eq parent::tei:div/@n">
-                              The @xml:id is "<sch:value-of select="."/>" but it should be 
-                              "<sch:value-of select="concat('section-', parent::tei:div/@n)"/>".
+                        <sch:rule context="tei:text//tei:div[@n]">
+                           <sch:assert test="starts-with(@xml:id, concat(@type, '-'))">
+                              The @xml:id attribute should begin with "<sch:value-of select="concat(@type, '-')"/>".
+                           </sch:assert>
+                           <sch:assert test="substring-after(@xml:id, '-') = @n">
+                              The @xml:id attribute should be <sch:value-of select="concat(@type, '-', @n)"/>
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:text//tei:div[not(@type='work')][not(@n)]">
+                           <sch:assert test="starts-with(@xml:id, concat(@type, '-'))">
+                              The @xml:id attribute should begin with "<sch:value-of select="concat(@type, '-')"/>"
+                              and be followed by a unique number corresponding to the position of the &lt;div&gt;
+                              element of this same @type. I.e. if there are two "trailer" &lt;div&gt; elements
+                              they should be numbered in order "1" and "2".
                            </sch:assert>
                         </sch:rule>
                      </constraint>
@@ -272,6 +278,16 @@
                            <sch:assert test="@n = $expectedNAtt">
                               The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
                               but it should be "<sch:value-of select="$expectedNAtt"/>".
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:text//tei:div[@n][parent::tei:div[@n]]">
+                           <sch:let name="parentN" value="parent::tei:div/@n"/>
+                           <sch:let name="IDAfter-" value="replace(@xml:id, '\w+-', '')"/>
+                           <sch:assert test="starts-with(@n, $parentN)">
+                              This @n attribute should begin with "<sch:value-of select="$parentN"/>".
+                           </sch:assert>
+                           <sch:assert test="$IDAfter- = @n">
+                              The portion of the @xml:id following the "-" should be "<sch:value-of select="@n"/>".
                            </sch:assert>
                         </sch:rule>
                      </constraint>
