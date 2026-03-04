@@ -624,7 +624,7 @@
                
                <elementSpec ident="persName" module="namesdates" mode="change">
                   <content>
-                     <sequence>
+                     <sequence preserveOrder="false">
                         <textNode/>
                         <elementRef key="placeName" minOccurs="0" maxOccurs="1"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
@@ -666,7 +666,7 @@
                
                <elementSpec ident="placeName" module="namesdates" mode="change">
                   <content>
-                     <sequence>
+                     <sequence preserveOrder="false">
                         <textNode/>
                         <elementRef key="persName" minOccurs="0" maxOccurs="1"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
