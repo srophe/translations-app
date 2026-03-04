@@ -628,6 +628,7 @@
                         <textNode/>
                         <elementRef key="placeName" minOccurs="0" maxOccurs="1"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="ptr" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
                   <attList>
@@ -669,6 +670,7 @@
                         <textNode/>
                         <elementRef key="persName" minOccurs="0" maxOccurs="1"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="ptr" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
                   <attList>
