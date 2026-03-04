@@ -162,7 +162,7 @@
                   <content>
                      <sequence minOccurs="1" maxOccurs="1" preserveOrder="true">
                         <elementRef key="div" minOccurs="1" maxOccurs="3"/>
-                        <elementRef key="noteGrp" minOccurs="1" maxOccurs="1"/>
+                        <elementRef key="noteGrp" minOccurs="0" maxOccurs="1"/>
                      </sequence>
                   </content>
                </elementSpec>
