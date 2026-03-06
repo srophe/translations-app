@@ -203,20 +203,12 @@
                               This &lt;div&gt; element must have an @xml:id attribute with the value "introduction".
                            </sch:assert>
                         </sch:rule>
-                        <sch:rule context="tei:body//tei:div[@type = 'section']">
-                           <sch:assert test="starts-with(@xml:id, 'section')">
-                              This &lt;div&gt; element must have an @xml:id attribute that starts with "section".
-                           </sch:assert>
-                        </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'trailer']">
                            <sch:report test="@n">
                               An @n attribute not allowed here. If a portion of text should appear 
                               in a &lt;div&gt; that needs an @n attribute, put that section of text 
                               into a &lt;div&gt; with a @type attribute having the value "section".
                            </sch:report>
-                           <!--<sch:assert test="starts-with(@xml:id, 'trailer')">
-                              This &lt;div&gt; element must have an @xml:id attribute with the value "trailer".
-                           </sch:assert>-->
                         </sch:rule>
                         <sch:rule context="tei:body//tei:div[@type = 'work'][not(@n)]">
                            <sch:assert test="@xml:id='work'">
