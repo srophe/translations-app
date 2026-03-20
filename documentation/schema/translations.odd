@@ -400,14 +400,17 @@
                            <valItem ident="cop">
                               <desc>Coptic of any variety or period</desc>
                            </valItem>
-                           <valItem ident="fr">
-                              <desc>French of any variety or period</desc>
-                           </valItem>
                            <valItem ident="de">
                               <desc>German of any variety or period</desc>
                            </valItem>
+                           <valItem ident="fr">
+                              <desc>French of any variety or period</desc>
+                           </valItem>
                            <valItem ident="grc">
                               <desc>Ancient Greek to A.D. 1453</desc>
+                           </valItem>
+                           <valItem ident="hbo">
+                              <desc>Ancient Hebrew</desc>
                            </valItem>
                            <valItem ident="la">
                               <desc>Latin of any variety or period</desc>
