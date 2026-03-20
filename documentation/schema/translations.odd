@@ -64,6 +64,7 @@
                         <elementRef key="ellipsis" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="foreign" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="hi" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="list" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="persName" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="placeName" minOccurs="0" maxOccurs="unbounded"/>
@@ -773,6 +774,7 @@
                         <elementRef key="choice" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="foreign" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="hi" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="list" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="persName" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="placeName" minOccurs="0" maxOccurs="unbounded"/>
