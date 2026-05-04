@@ -1,0 +1,29 @@
+@CHARSET "ISO-8859-1";
+
+/* 
+ * 
+ * SyrCOMEdessa.otf
+ * SyrCOMAntioch.otf
+ * SertoAntochBible_2020_Release.ttf
+ * 
+ */
+@font-face {
+    font-family: 'SyrCOMAdiabene';
+    src: url('../fonts/SyrCOMAdiabene.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SyrCOMTalada';
+    src: url('../fonts/SyrCOMEdessa.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SyrCOMAntioch';
+    src: url('../fonts/SertoAntochBible_2020_Release.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

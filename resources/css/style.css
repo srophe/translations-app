@@ -1,0 +1,86 @@
+/* Application styles */
+/*
+ * Colors:
+ *  
+ */
+ 
+@import url("syr-font-families.css");
+
+/* Navbar search */
+#search-wrapper {
+  margin-top: .75em;
+  margin-left:.5em;
+  margin-right:.5em; 
+  padding:0;
+  display:flex;
+  flex-direction:row;
+  border:1px solid grey;
+  height: 32px;
+  background-color: rgba(255,255,255, .80);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+}
+
+#search-wrapper form {margin: 0; border:0 !important; padding:0;display:flex;}
+#search-wrapper input {
+  border-radius: 25px;
+  height: 32px;
+  background-color:transparent !important;
+  border:none;
+  flex-grow:2;
+  border:none;
+/*  color:white;  */
+}
+
+#search-wrapper .form-group {display:flex;}
+#search-wrapper input:focus{
+  outline: none;
+}
+
+.navbar-btn {
+  margin-top: .75em;
+  margin-right:4px;
+  height: 32px;
+  color: #3596e0;
+  border-radius: 25px;
+  height: 32px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.search-box .search-btn {
+  margin-left:-.5em !important;
+  width: 32px;
+  height: 32px;
+  border: none !important;
+  color: #3596e0;
+  background-color:transparent !important;
+}
+
+.search-box .keyboard-menu .btn-default {
+   height: 32px;
+   border:none;
+   background-color:transparent !important;
+}
+
+.search-box .navbar-form {overflow:visible;}
+.searchHeading {
+    margin:0; 
+    padding:2em;
+    background-color:#F7F7F9;
+}
+.searchForm {margin-top:3em; margin-bottom:0;}
+
+.main-content-block {margin-top:75px;}
+.otherFormats {width:100%; float:right;}
+
+.interior-content {margin:2em;}
+
+/* TEI Styles */
+.lg {margin:1em 0;}
+.l {display:block;}
+.link_ptr {font-size:smaller; vertical-align:super;}
+.pagebreak {display:block; margin-top:1em; margin-bottom:1.5em; padding-top:.25em; border-top:1px solid gray; text-align:center;}
+.noteGrp {margin:1em 0;}
+.noteLabel {display:none;}
+.section {margin:1em;}
+.tei_body {margin:2em; padding: 1em;}
