@@ -63,9 +63,7 @@ jobs:
       - name: Run Python TEI->JSON conversion
         run: |
           mkdir -p json_output_python
-          python3 tei2json.py 
-          
-          translations-data/tei --outdir json_output_python --bulk bulk_data.json --manuscripts manuscripts.json --index translations-index-1 --idprefix ms
+          python3 tei2json.py translations-data/tei -o json_output_python --combined json/combined.json --pretty
           echo "python process"
           
       # 3. Identify XML files (null-safe)
