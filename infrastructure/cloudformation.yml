@@ -1,0 +1,136 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Template for simplified version of Gaddel application architecture without OpenSearch."
+Parameters:
+  BucketName:
+    Type: String
+    Default: gaddel-translations-site
+    Description: S3 bucket name for hosting the Gaddel app.
+  ApplicationName:
+    Type: String
+    Default: Translations
+    Description: Application name for tagging resources
+  GitHubOrg:
+    Type: String
+    Default: srophe
+  GitHubCodeRepo:
+    Type: String
+    Default: translations-app
+  GitHubDataRepo:
+    Type: String
+    Default: translations
+
+Resources:
+  # S3 Bucket for Hosting
+  TranslationsS3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      WebsiteConfiguration:
+        IndexDocument: "index.html"
+        ErrorDocument: "error.html"
+
+  # Origin Access Control for S3 Hosting
+  TranslationsOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: "TranslationsOAC"
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+
+  # CloudFront Distribution for Translations
+  TranslationsCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Origins:
+          - DomainName: !GetAtt TranslationsS3Bucket.RegionalDomainName
+            Id: S3Origin
+            S3OriginConfig: {}
+            OriginAccessControlId: !Ref TranslationsOAC
+        DefaultCacheBehavior:
+          AllowedMethods: [GET, HEAD]
+          CachedMethods: [GET, HEAD]
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+        DefaultRootObject: index.html
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+
+  TranslationsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref TranslationsS3Bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontServicePrincipalRead
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource:
+              - !Sub "arn:aws:s3:::${BucketName}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${TranslationsCloudFrontDistribution}"      
+ 
+  TranslationsDeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${ApplicationName}-GitHubDeployOIDCRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Sub "arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com"
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringLike:
+                token.actions.githubusercontent.com:sub:
+                  - !Sub "repo:${GitHubOrg}/${GitHubCodeRepo}:ref:refs/heads/*"
+                  - !Sub "repo:${GitHubOrg}/${GitHubDataRepo}:ref:refs/heads/*"
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+
+      Policies:
+        - PolicyName: !Sub "${ApplicationName}-GitHubS3DeployPolicy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "arn:aws:s3:::${BucketName}"
+                  - !Sub "arn:aws:s3:::${BucketName}/*"
+
+              - Effect: Allow
+                Action:
+                  - cloudfront:CreateInvalidation
+                Resource: "*"
+
+Outputs:
+  TranslationsS3Bucket:
+    Value: !Ref BucketName
+    Description: "Name of the S3 bucket."
+
+  TranslationsCloudFrontURL:
+    Value: !GetAtt TranslationsCloudFrontDistribution.DomainName
+    Description: "URL for the Translations CloudFront distribution."
+
+  DeployRoleArn:
+    Value: !GetAtt TranslationsDeployRole.Arn
+    Description: "IAM Role to assume from GitHub Actions"  
