@@ -74,6 +74,51 @@
 .otherFormats {width:100%; float:right;}
 
 .interior-content {margin:2em;}
+/* Toggle button styles */
+div.toggle-buttons input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+div.toggle-buttons label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 40px;
+	height: 20px;
+	background: grey;
+	display: block;
+	border-radius: 26px;
+	position: relative;
+	display: inline-block;
+}
+
+div.toggle-buttons label:after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	border-radius: 16px;
+	transition: 0.3s;
+}
+
+div.toggle-buttons input:checked + label {
+	background: /*#bada55*/ #5FC0DD;
+}
+
+div.toggle-buttons input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+div.toggle-buttons label:active:after {
+	width: 26px;
+}
+div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
+
 
 /* TEI Styles */
 .lg {margin:1em 0;}
@@ -84,3 +129,9 @@
 .noteLabel {display:none;}
 .section {margin:1em;}
 .tei_body {margin:2em; padding: 1em;}
+.tei-ab.block {display:block; text-align:center;}
+.tei-ab.inline {display:inline;}
+.tei-ab {display:none;}
+.tei-pb.block {display:block; text-align:center;}
+.tei-pb.inline {display:inline;}
+.tei-pb {display:none;}

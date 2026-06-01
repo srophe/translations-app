@@ -7,9 +7,15 @@
     
     <!-- Divs, sections etc -->
     <xsl:template match="t:ab">
-        <p class="tei_ab">
+        <div class="tei-ab-block">
             <xsl:apply-templates/>
-        </p>
+        </div>
+        <span>
+            <xsl:attribute name="class">
+                <xsl:value-of select="concat('tei-ab',if(@type) then concat(' ab-type-',@type) else (), if(@rend) then concat(' ab-rend-',@rend) else ())"/>
+            </xsl:attribute>
+            <xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if>
+        </span>
     </xsl:template>
     
     <!-- Entities -->
@@ -45,5 +51,16 @@
             </xsl:otherwise>
         </xsl:choose>
        
+    </xsl:template>
+    <!-- Page breaks -->
+    <!-- <pb type="vol" n="231"/><pb type="running" rend="brackets" n="231"/> -->
+    <xsl:template match="t:pb">
+        <span>
+            <xsl:attribute name="class">
+                <xsl:value-of select="concat('tei-pb',if(@type) then concat(' pb-type-',@type) else (), if(@rend) then concat(' pb-rend-',@rend) else ())"/>
+            </xsl:attribute>
+            <xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if>
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
 </xsl:stylesheet>

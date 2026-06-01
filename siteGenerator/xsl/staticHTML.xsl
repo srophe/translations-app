@@ -668,7 +668,7 @@
                 <xsl:with-param name="node" select="$nodes/descendant::t:body/child::*"/>
             </xsl:call-template>
         </xsl:variable>
-        <!-- Hide toggle functions 
+        <!-- Hide toggle functions -->
         <xsl:if test="$nodes/descendant::t:body/descendant::*[@n][not(@type='section') and not(@type='part')]">
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
@@ -680,7 +680,16 @@
                     <xsl:for-each select="$types">
                         <xsl:sort select="."/>
                         <xsl:choose>
-                            <xsl:when test=". = ('part','text','rubric','heading','title')"></xsl:when>
+                            <xsl:when test=". = ('part','text','rubric','heading','title','work','section')"></xsl:when>
+                            <!--
+                            <xsl:when test=". = 'section'">
+                                <div class="toggle-buttons">
+                                    <span class="toggle-label"><xsl:value-of select="."/> : </span>
+                                    <input class="toggleDisplay" type="checkbox" id="toggle{.}" data-element="section" checked="if. = 'section') then 'checked' else()"/>
+                                    <label for="toggle{.}"><xsl:value-of select="."/></label>
+                                </div>
+                            </xsl:when>
+                            -->
                             <xsl:otherwise>
                                 <div class="toggle-buttons">
                                     <span class="toggle-label"><xsl:value-of select="."/> : </span>
@@ -755,7 +764,7 @@
                     </xsl:if>
                 </div>
             </div>
-        </xsl:if>-->
+        </xsl:if>
         <xsl:if test="$toc/child::*[. = '']">
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showToc">Table of Contents  </a>
