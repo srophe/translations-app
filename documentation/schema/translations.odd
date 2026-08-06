@@ -642,8 +642,9 @@
                   <content>
                      <sequence preserveOrder="false">
                         <textNode/>
-                        <elementRef key="placeName" minOccurs="0" maxOccurs="1"/>
+                        <elementRef key="foreign" minOccurs="0" maxOccurs="1"/>
                         <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        <elementRef key="placeName" minOccurs="0" maxOccurs="1"/>
                         <elementRef key="ptr" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
@@ -801,6 +802,50 @@
                
                
                <elementSpec ident="title" module="core" mode="change">
+                  <constraintSpec ident="titleStmt-titles" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:titleStmt/tei:title">
+                           <sch:assert test="@level">
+                              This title must have a @level attribute.
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:titleStmt/tei:title">
+                           <sch:assert test="@ref">
+                              This title must have a @ref attribute.
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:titleStmt/tei:title/@level">
+                           <sch:report test="u">
+                              "Unpublished" is not an acceptable value on @level in this context.
+                           </sch:report>
+                           <sch:report test="j">
+                              "Journal" is not an acceptable value on @level in this context.
+                           </sch:report>
+                        </sch:rule>
+                        <sch:rule context="tei:titleStmt/tei:title[@level='a']">
+                           <sch:assert test="following-sibling::tei:title/@level='s'">
+                              A &lt;title&gt; element with @level="a" indicates that this work is part of a 
+                              series of works. It must be followed by another &lt;title&gt; element with
+                              @level="s" that contains the title of the collection.
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:titleStmt/tei:title[@level='s']">
+                           <sch:assert test="preceding-sibling::tei:title/@level='a'">
+                              A &lt;title&gt; element with @level="s" indicates a series of works. 
+                              If this work is part of a series, this &lt;title&gt; element must be preceded by 
+                              another &lt;title&gt; element with @level="a" that contains the title of this individual work.
+                           </sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:titleStmt/tei:title[@level='m']">
+                           <sch:report test="parent::tei:titleStmt/tei:title/@level='a' or parent::tei:titleStmt/tei:title/@level='s'">
+                              A &lt;title&gt; element with @level="m" indicates that this work is a self-contained work
+                              that is not part of a collection. If this work is a part of a collection, use a &lt;title&gt; 
+                              element with @level="a" for this work followed by a &lt;title&gt; element with @level="s"
+                              for the title of the larger collection.
+                           </sch:report>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="ref" usage="rec" mode="change">
                         <datatype minOccurs="1" maxOccurs="unbounded">
