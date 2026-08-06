@@ -808,36 +808,23 @@
                            <sch:assert test="@level">
                               This title must have a @level attribute.
                            </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:titleStmt/tei:title">
                            <sch:assert test="@ref">
                               This title must have a @ref attribute.
                            </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:titleStmt/tei:title/@level">
-                           <sch:report test="u">
-                              "Unpublished" is not an acceptable value on @level in this context.
+                           <sch:report test="@level = ('u','j')">
+                              Invalid @level value in this context.
                            </sch:report>
-                           <sch:report test="j">
-                              "Journal" is not an acceptable value on @level in this context.
-                           </sch:report>
-                        </sch:rule>
-                        <sch:rule context="tei:titleStmt/tei:title[@level='a']">
-                           <sch:assert test="following-sibling::tei:title/@level='s'">
+                           <sch:assert test="not(@level='a') or following-sibling::tei:title/@level='s'">
                               A &lt;title&gt; element with @level="a" indicates that this work is part of a 
                               series of works. It must be followed by another &lt;title&gt; element with
                               @level="s" that contains the title of the collection.
                            </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:titleStmt/tei:title[@level='s']">
-                           <sch:assert test="preceding-sibling::tei:title/@level='a'">
+                           <sch:assert test="not(@level='s') or preceding-sibling::tei:title/@level='a'">
                               A &lt;title&gt; element with @level="s" indicates a series of works. 
                               If this work is part of a series, this &lt;title&gt; element must be preceded by 
                               another &lt;title&gt; element with @level="a" that contains the title of this individual work.
                            </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:titleStmt/tei:title[@level='m']">
-                           <sch:report test="parent::tei:titleStmt/tei:title/@level='a' or parent::tei:titleStmt/tei:title/@level='s'">
+                           <sch:report test="@level='m' and (../tei:title[@level='a'] or ../tei:title/@level='s')">
                               A &lt;title&gt; element with @level="m" indicates that this work is a self-contained work
                               that is not part of a collection. If this work is a part of a collection, use a &lt;title&gt; 
                               element with @level="a" for this work followed by a &lt;title&gt; element with @level="s"
