@@ -315,7 +315,8 @@
                            <valItem ident="introduction">
                               <desc>An introduction that is the equivalent of a chapter but not
                                  numbered among the chapters of the work.</desc>
-                           </valItem><valItem ident="preface">
+                           </valItem>
+                           <valItem ident="preface">
                               <desc>A short introduction to a collection of works not a part of a single
                               work but not substantial enough to be marked up as a work in 
                               it's own right. It cannot be a numbered section of the text.</desc>
