@@ -776,6 +776,7 @@
                   <content>
                      <sequence preserveOrder="false">
                         <textNode/>
+                        <elementRef key="ab" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="choice" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="foreign" minOccurs="0" maxOccurs="unbounded"/>
                         <elementRef key="hi" minOccurs="0" maxOccurs="unbounded"/>
