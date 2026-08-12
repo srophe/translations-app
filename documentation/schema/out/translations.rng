@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-08-12T14:24:31Z. . 
+Schema generated from ODD source 2026-08-12T15:13:40Z. . 
 TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
   
@@ -8773,78 +8773,38 @@ Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      context="tei:body//tei:div[not(contains(@xml:id, '-'))]/child::tei:ab[preceding-sibling::tei:ab]">
-               <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
-               <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
-               <sch:let name="precSibText" value="replace($previousIDAtt, '\d+', '')"/>
-               <sch:let name="previousSequence"
-                        value="number(replace($previousIDAtt, '\D+', ''))"/>
-               <sch:let name="expectedSequence" value="$previousSequence + 1"/>
-               <sch:let name="expectedIDAtt" value="concat($precSibText, $expectedSequence)"/>
-               <sch:assert test="@xml:id = $expectedIDAtt">
-                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
-                              but in order to match the text structure it should be 
-                              "<sch:value-of select="$expectedIDAtt"/>".
-                           </sch:assert>
-            </sch:rule>
-            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
-                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      xmlns:xi="http://www.w3.org/2001/XInclude"
-                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      context="tei:body//tei:div[not(contains(@xml:id, '-'))][not(contains(@xml:id, 'work'))]/child::tei:ab[1]/@xml:id">
-               <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
-               <sch:assert test=". = concat($parentDivID, '-1')">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "<sch:value-of select="concat($parentDivID, '-1')"/>".
-                           </sch:assert>
-            </sch:rule>
-            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
-                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      xmlns:xi="http://www.w3.org/2001/XInclude"
-                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      context="tei:body//tei:div[contains(@xml:id, 'work')]/child::tei:ab[1]/@xml:id">
-               <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
-               <sch:assert test=". = 'section-1'">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "section-1".
+                      context="tei:body//tei:div[not(contains(@xml:id, '-'))]//tei:ab">
+               <sch:let name="parentDiv" value="ancestor::tei:div[1]"/>
+               <sch:let name="expectedPrefix" value="concat($parentDiv/@xml:id, '-')"/>
+               <sch:let name="abPosition"
+                        value="count(preceding::tei:ab[ancestor::tei:div[1] is $parentDiv]) + 1"/>
+               <sch:let name="expectedId" value="concat($expectedPrefix, $abPosition)"/>
+               <sch:assert test="@xml:id = $expectedId" role="error">
+                              Invalid @xml:id format for &lt;ab&gt;. Expected "<sch:value-of select="$expectedId"/>", but found "<sch:value-of select="@xml:id"/>".
                            </sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-ab-ID-on-ab-multiple-div-constraint-rule-56">
+                  id="Translations-ab-ID-on-ab-multiple-div-constraint-rule-54">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
                       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      context="tei:body//tei:div[contains(@xml:id, '-')][not(contains(@xml:id, 'work'))]/child::tei:ab[preceding-sibling::tei:ab]">
-               <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
-               <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
-               <sch:let name="previousSequence"
-                        value="number(tokenize($previousIDAtt, '\.')[last()])"/>
-               <sch:let name="expectedSequence" value="$previousSequence + 1"/>
-               <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
-               <sch:assert test="@xml:id = $expectedIDAtt">
-                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
-                              but in order to match the text structure it should be 
-                              "<sch:value-of select="$expectedIDAtt"/>".
-                           </sch:assert>
-            </sch:rule>
-            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
-                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      xmlns:xi="http://www.w3.org/2001/XInclude"
-                      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[1]/@xml:id">
-               <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
-               <sch:assert test=". = concat($parentDivID, '.1')">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "<sch:value-of select="concat($parentDivID, '.1')"/>".
+                      context="tei:body//tei:div[contains(@xml:id, '-')][not(contains(@xml:id, 'work'))]//tei:ab">
+               <sch:let name="parentDiv" value="ancestor::tei:div[1]"/>
+               <sch:let name="expectedPrefix" value="concat($parentDiv/@xml:id, '.')"/>
+               <sch:let name="abPosition"
+                        value="count(preceding::tei:ab[ancestor::tei:div[1] is $parentDiv]) + 1"/>
+               <sch:let name="expectedId" value="concat($expectedPrefix, $abPosition)"/>
+               <sch:assert test="@xml:id = $expectedId" role="error">
+                              Invalid @xml:id format for &lt;ab&gt;. Expected "<sch:value-of select="$expectedId"/>", but found "<sch:value-of select="@xml:id"/>".
                            </sch:assert>
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-ab-abstractModel-structure-ab-in-l-constraint-rule-58">
+                  id="Translations-ab-abstractModel-structure-ab-in-l-constraint-rule-55">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -9051,7 +9011,7 @@ Suggested values include: 1] d (days); 2] h (hours); 3] min (minutes); 4] s (sec
          </zeroOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-join-joinTargets3-constraint-rule-59">
+                  id="Translations-join-joinTargets3-constraint-rule-56">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -9713,7 +9673,7 @@ Suggested values include: 1] d (days); 2] h (hours); 3] min (minutes); 4] s (sec
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-persName-ref-ref-on-persName-constraint-rule-60">
+                  id="Translations-persName-ref-ref-on-persName-constraint-rule-57">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -9842,7 +9802,7 @@ Suggested values include: 1] d (days); 2] h (hours); 3] min (minutes); 4] s (sec
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-placeName-ref-ref-on-placeName-constraint-rule-61">
+                  id="Translations-placeName-ref-ref-on-placeName-constraint-rule-58">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -10982,7 +10942,7 @@ Sample values include: 1] e (e); 2] he (he); 3] she (she); 4] they (they)</a:doc
          </optional>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-relation-ref-or-key-or-name-constraint-rule-62">
+                  id="Translations-relation-ref-or-key-or-name-constraint-rule-59">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -10993,7 +10953,7 @@ Sample values include: 1] e (e); 2] he (he); 3] she (she); 4] they (they)</a:doc
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-relation-active-mutual-constraint-rule-63">
+                  id="Translations-relation-active-mutual-constraint-rule-60">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -11004,7 +10964,7 @@ Sample values include: 1] e (e); 2] he (he); 3] she (she); 4] they (they)</a:doc
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-relation-active-passive-constraint-rule-64">
+                  id="Translations-relation-active-passive-constraint-rule-61">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -11620,7 +11580,7 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </interleave>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-div-divAtts-constraint-rule-65">
+                  id="Translations-div-divAtts-constraint-rule-62">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -11668,7 +11628,7 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-div-xmlID-on-div-constraint-rule-69">
+                  id="Translations-div-xmlID-on-div-constraint-rule-66">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -11694,7 +11654,7 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-div-n-on-div-constraint-rule-71">
+                  id="Translations-div-n-on-div-constraint-rule-68">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -11744,7 +11704,7 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-div-abstractModel-structure-div-in-l-constraint-rule-75">
+                  id="Translations-div-abstractModel-structure-div-in-l-constraint-rule-72">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -11756,7 +11716,7 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-76">
+                  id="Translations-div-abstractModel-structure-div-in-ab-or-p-constraint-rule-73">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -12771,7 +12731,7 @@ Suggested values include: 1] main (main); 2] sub (subordinate); 3] alt (alternat
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-facsimile-no_facsimile_text_nodes-constraint-rule-77">
+                  id="Translations-facsimile-no_facsimile_text_nodes-constraint-rule-74">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -12911,7 +12871,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-path-pathmustnotbeclosed-constraint-rule-78">
+                  id="Translations-path-pathmustnotbeclosed-constraint-rule-75">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -12965,7 +12925,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-addSpan-addSpan-requires-spanTo-constraint-rule-79">
+                  id="Translations-addSpan-addSpan-requires-spanTo-constraint-rule-76">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -12976,7 +12936,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-addSpan-addSpan-requires-spanTo-fr-constraint-rule-80">
+                  id="Translations-addSpan-addSpan-requires-spanTo-fr-constraint-rule-77">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -13009,7 +12969,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-damageSpan-damageSpan-requires-spanTo-constraint-rule-81">
+                  id="Translations-damageSpan-damageSpan-requires-spanTo-constraint-rule-78">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -13020,7 +12980,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-damageSpan-damageSpan-requires-spanTo-fr-constraint-rule-82">
+                  id="Translations-damageSpan-damageSpan-requires-spanTo-fr-constraint-rule-79">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -13042,7 +13002,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-delSpan-delSpan-requires-spanTo-constraint-rule-83">
+                  id="Translations-delSpan-delSpan-requires-spanTo-constraint-rule-80">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -13053,7 +13013,7 @@ Sample values include: 1] glued; 2] pinned; 3] sewn</a:documentation>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-delSpan-delSpan-requires-spanTo-fr-constraint-rule-84">
+                  id="Translations-delSpan-delSpan-requires-spanTo-fr-constraint-rule-81">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -13226,7 +13186,7 @@ Sample values include: 1] header; 2] footer; 3] pageNum (page number); 4] lineNu
          </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                  id="Translations-subst-substContents1-constraint-rule-85">
+                  id="Translations-subst-substContents1-constraint-rule-82">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"

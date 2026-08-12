@@ -95,66 +95,26 @@
                   </constraintSpec>
                   <constraintSpec ident="ID-on-ab-solo-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:body//tei:div[not(contains(@xml:id, '-'))]/child::tei:ab[preceding-sibling::tei:ab]">
-                           <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
-                           <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
-                           <sch:let name="precSibText" value="replace($previousIDAtt, '\d+', '')"/>
-                           <sch:let name="previousSequence" value="number(replace($previousIDAtt, '\D+', ''))"/>
-                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
-                           <sch:let name="expectedIDAtt" value="concat($precSibText, $expectedSequence)"/>
-                           <sch:assert test="@xml:id = $expectedIDAtt">
-                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
-                              but in order to match the text structure it should be 
-                              "<sch:value-of select="$expectedIDAtt"/>".
-                           </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:body//tei:div[not(contains(@xml:id, '-'))][not(contains(@xml:id, 'work'))]/child::tei:ab[1]/@xml:id">
-                           <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
-                           <sch:assert test=". = concat($parentDivID, '-1')">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "<sch:value-of select="concat($parentDivID, '-1')"/>".
-                           </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:body//tei:div[contains(@xml:id, 'work')]/child::tei:ab[1]/@xml:id">
-                           <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
-                           <sch:assert test=". = 'section-1'">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "section-1".
+                        <sch:rule context="tei:body//tei:div[not(contains(@xml:id, '-'))]//tei:ab">
+                           <sch:let name="parentDiv" value="ancestor::tei:div[1]"/>
+                           <sch:let name="expectedPrefix" value="concat($parentDiv/@xml:id, '-')"/>
+                           <sch:let name="abPosition" value="count(preceding::tei:ab[ancestor::tei:div[1] is $parentDiv]) + 1"/>
+                           <sch:let name="expectedId" value="concat($expectedPrefix, $abPosition)"/>
+                           <sch:assert test="@xml:id = $expectedId" role="error">
+                              Invalid @xml:id format for &lt;ab&gt;. Expected "<sch:value-of select="$expectedId"/>", but found "<sch:value-of select="@xml:id"/>".
                            </sch:assert>
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
                   <constraintSpec ident="ID-on-ab-multiple-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:body//tei:div[contains(@xml:id, '-')][not(contains(@xml:id, 'work'))]/child::tei:ab[preceding-sibling::tei:ab]">
-                           <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
-                           <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
-                           <sch:let name="previousSequence" value="number(tokenize($previousIDAtt, '\.')[last()])"/>
-                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
-                           <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
-                           <sch:assert test="@xml:id = $expectedIDAtt">
-                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
-                              but in order to match the text structure it should be 
-                              "<sch:value-of select="$expectedIDAtt"/>".
-                           </sch:assert>
-                        </sch:rule>
-                        <!--<sch:rule context="tei:body//tei:div[contains(@xml:id, 'work')]/child::tei:ab[preceding-sibling::tei:ab]">
-                           <sch:let name="parentID" value="parent::tei:div/@xml:id"/>
-                           <sch:let name="previousIDAtt" value="preceding-sibling::tei:ab[1]/@xml:id"/>
-                           <sch:let name="previousSequence" value="number(substring-after($previousIDAtt, '-'))"/>
-                           <sch:let name="expectedSequence" value="$previousSequence + 1"/>
-                           <sch:let name="expectedIDAtt" value="concat($parentID, '.', $expectedSequence)"/>
-                           <sch:assert test="@xml:id = $expectedIDAtt">
-                              The @xml:id attribute is "<sch:value-of select="@xml:id"/>" 
-                              but in order to match the text structure it should be 
-                              "<sch:value-of select="$expectedIDAtt"/>".
-                           </sch:assert>
-                        </sch:rule>-->
-                        <sch:rule context="tei:body//tei:div[contains(@xml:id, '-')]/child::tei:ab[1]/@xml:id">
-                           <sch:let name="parentDivID" value="parent::tei:ab/parent::tei:div/@xml:id"/>
-                           <sch:assert test=". = concat($parentDivID, '.1')">
-                              This @xml:id attribute is "<sch:value-of select="."/>" 
-                              but it should be "<sch:value-of select="concat($parentDivID, '.1')"/>".
+                        <sch:rule context="tei:body//tei:div[contains(@xml:id, '-')][not(contains(@xml:id, 'work'))]//tei:ab">
+                           <sch:let name="parentDiv" value="ancestor::tei:div[1]"/>
+                           <sch:let name="expectedPrefix" value="concat($parentDiv/@xml:id, '.')"/>
+                           <sch:let name="abPosition" value="count(preceding::tei:ab[ancestor::tei:div[1] is $parentDiv]) + 1"/>
+                           <sch:let name="expectedId" value="concat($expectedPrefix, $abPosition)"/>
+                           <sch:assert test="@xml:id = $expectedId" role="error">
+                              Invalid @xml:id format for &lt;ab&gt;. Expected "<sch:value-of select="$expectedId"/>", but found "<sch:value-of select="@xml:id"/>".
                            </sch:assert>
                         </sch:rule>
                      </constraint>
