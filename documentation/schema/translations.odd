@@ -752,6 +752,17 @@
                         <elementRef key="title" minOccurs="0" maxOccurs="unbounded"/>
                      </sequence>
                   </content>
+                  <constraintSpec ident="quote-contents" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:div/tei:quote[not(tei:ab[2])]">
+                           <sch:report test="tei:ab">
+                              A &lt;quote&gt; can only contain an &lt;ab&gt; element if there is 
+                              more than one &lt;ab&gt;. If the quotation is one and only one
+                              &lt;ab&gt;, the &lt;quote&gt; should go inside the &lt;ab&gt; element.
+                           </sch:report>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                   <attList>
                      <attDef ident="source" usage="opt" mode="change">
                         <datatype minOccurs="1" maxOccurs="unbounded">
