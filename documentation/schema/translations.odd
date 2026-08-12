@@ -417,6 +417,9 @@
                            <valItem ident="hbo">
                               <desc>Ancient Hebrew</desc>
                            </valItem>
+                           <valItem ident="it">
+                              <desc>Italian</desc>
+                           </valItem>
                            <valItem ident="la">
                               <desc>Latin of any variety or period</desc>
                            </valItem>
