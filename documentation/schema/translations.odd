@@ -196,7 +196,7 @@
                         <alternate>
                            <sequence preserveOrder="false">
                               <elementRef key="ab" maxOccurs="unbounded"/>
-                              <elementRef key="quote" maxOccurs="unbounded"/>
+                              <elementRef key="quote" minOccurs="0" maxOccurs="unbounded"/>
                            </sequence>
                            <elementRef key="div" maxOccurs="unbounded"/>
                            <elementRef key="lg" maxOccurs="unbounded"/>
