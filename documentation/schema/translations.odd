@@ -195,7 +195,7 @@
                         <elementRef key="head" minOccurs="0" maxOccurs="2"/>
                         <alternate>
                            <sequence preserveOrder="false">
-                              <elementRef key="ab" maxOccurs="unbounded"/>
+                              <elementRef key="ab" minOccurs="0" maxOccurs="unbounded"/>
                               <elementRef key="quote" minOccurs="0" maxOccurs="unbounded"/>
                            </sequence>
                            <elementRef key="div" maxOccurs="unbounded"/>
