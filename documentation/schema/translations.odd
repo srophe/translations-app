@@ -93,7 +93,7 @@
                         </sch:rule>
                         </constraint>
                   </constraintSpec>
-                  <constraintSpec ident="ID-on-ab-solo-div" scheme="schematron">
+                  <!--<constraintSpec ident="ID-on-ab-solo-div" scheme="schematron">
                      <constraint>
                         <sch:rule context="tei:body//tei:div[not(contains(@xml:id, '-'))]//tei:ab">
                            <sch:let name="parentDiv" value="ancestor::tei:div[1]"/>
@@ -105,7 +105,7 @@
                            </sch:assert>
                         </sch:rule>
                      </constraint>
-                  </constraintSpec>
+                  </constraintSpec>-->
                   <constraintSpec ident="ID-on-ab-multiple-div" scheme="schematron">
                      <constraint>
                         <sch:rule context="tei:body//tei:div[contains(@xml:id, '-')][not(contains(@xml:id, 'work'))]//tei:ab">
@@ -142,7 +142,7 @@
                <elementSpec ident="body" module="textstructure" mode="change">
                   <content>
                      <sequence minOccurs="1" maxOccurs="1" preserveOrder="true">
-                        <elementRef key="div" minOccurs="1" maxOccurs="3"/>
+                        <elementRef key="div" minOccurs="1" maxOccurs="1"/>
                         <elementRef key="noteGrp" minOccurs="0" maxOccurs="1"/>
                      </sequence>
                   </content>
