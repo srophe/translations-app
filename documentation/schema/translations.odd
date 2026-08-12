@@ -194,7 +194,10 @@
                      <sequence preserveOrder="false">
                         <elementRef key="head" minOccurs="0" maxOccurs="2"/>
                         <alternate>
-                           <elementRef key="ab" maxOccurs="unbounded"/>
+                           <sequence preserveOrder="false">
+                              <elementRef key="ab" maxOccurs="unbounded"/>
+                              <elementRef key="quote" maxOccurs="unbounded"/>
+                           </sequence>
                            <elementRef key="div" maxOccurs="unbounded"/>
                            <elementRef key="lg" maxOccurs="unbounded"/>
                         </alternate>
