@@ -85,13 +85,32 @@
                   </constraintSpec>
                   <constraintSpec ident="n-on-ab" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:text//tei:ab">
+                        <!-- Rule 1: The first numbered <ab> must be n="1" -->
+                        <sch:rule context="tei:text//tei:ab[@n][not(preceding::tei:ab[@n])]">
+                           <sch:assert test="@n = '1'">
+                              The first &lt;ab&gt; element with an @n attribute must be numbered 1,
+                                 but it is numbered <sch:value-of select="@n"/>.
+                           </sch:assert>
+                        </sch:rule>
+                        <!-- Rule 2: Subsequent numbered <ab> elements must be sequential -->
+                        <sch:rule context="tei:text//tei:ab[@n][preceding::tei:ab[@n]]">
+                           <sch:let name="previousNumberedAb"
+                              value="preceding::tei:ab[@n][1]"/>
+                           <sch:let name="expectedNumber"
+                              value="number($previousNumberedAb/@n) + 1"/>
+                           <sch:assert test="number(@n) = $expectedNumber">
+                              The element &lt;ab&gt; is out of sequence. The @n attribute is numbered
+                                 <sch:value-of select="@n"/>, but it should be
+                                 <sch:value-of select="$expectedNumber"/>.
+                           </sch:assert>
+                        </sch:rule>
+                        <!--<sch:rule context="tei:text//tei:ab">
                            <sch:let name="expectedNumber" value="count(preceding::tei:ab) + 1"/>
                            <sch:assert test="number(@n) = $expectedNumber">
                               The element &lt;ab&gt; is out of sequence. The @n attribute is numbered <sch:value-of select="@n"/> 
                               but it should be <sch:value-of select="$expectedNumber"/>.
                            </sch:assert>
-                        </sch:rule>
+                        </sch:rule>-->
                         </constraint>
                   </constraintSpec>
                   <!--<constraintSpec ident="ID-on-ab-solo-div" scheme="schematron">
