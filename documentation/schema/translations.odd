@@ -140,7 +140,7 @@
                      </constraint>
                   </constraintSpec>
                   <attList>
-                     <attDef ident="n" usage="req" mode="change">
+                     <attDef ident="n" usage="rec" mode="change">
                         <datatype>
                            <dataRef key="teidata.text"/>
                         </datatype>
