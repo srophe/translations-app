@@ -223,20 +223,14 @@
                   </constraintSpec>
                   <constraintSpec ident="xmlID-on-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:text//tei:div[@n]">
-                           <sch:assert test="starts-with(@xml:id, concat(@type, '-'))">
+                        <sch:rule context="tei:text//tei:div/@xml:id">
+                           <sch:assert test="starts-with(., concat(@type, '-'))">
                               The @xml:id attribute should begin with "<sch:value-of select="concat(@type, '-')"/>".
                            </sch:assert>
-                           <!--<sch:assert test="substring-after(@xml:id, '-') = @n">
-                              The @xml:id attribute should be <sch:value-of select="concat(@type, '-', @n)"/>
-                           </sch:assert>-->
                         </sch:rule>
-                        <sch:rule context="tei:text//tei:div[not(@type='work')][not(@n)]">
-                           <sch:assert test="starts-with(@xml:id, concat(@type, '-'))">
-                              The @xml:id attribute should begin with "<sch:value-of select="concat(@type, '-')"/>"
-                              and be followed by a unique number corresponding to the position of the &lt;div&gt;
-                              element of this same @type. I.e. if there are two "trailer" &lt;div&gt; elements
-                              they should be numbered in order "1" and "2".
+                        <sch:rule context="tei:text//tei:div[@n]/@xml:id">
+                           <sch:assert test="ends-with(., concat('.', @n)">
+                              The @xml:id attribute should end with <sch:value-of select="concat('.', @n)"/>
                            </sch:assert>
                         </sch:rule>
                      </constraint>
