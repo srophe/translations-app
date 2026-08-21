@@ -243,6 +243,8 @@
                   </constraintSpec>
                   <constraintSpec ident="n-on-div" scheme="schematron">
                      <constraint>
+                        <!-- Accommodting the complexity of different text structures doesn't lend
+                        itself to tight constraints. The @n attributes need to be flexible. -->
                         <!--<sch:rule context="
                            tei:body//tei:div[@type = 'section'][following-sibling::tei:div[@type = 'section']] |
                            tei:body//tei:div[@type = 'section'][preceding-sibling::tei:div[@type = 'section']] |
@@ -258,14 +260,14 @@
                               This &lt;div&gt; cannot have an @n attribute.
                            </sch:report>
                         </sch:rule>-->
-                        <sch:rule context="tei:body/tei:div/tei:div[@n]/descendant::tei:div[@n][1]">
+                        <!--<sch:rule context="tei:body/tei:div/tei:div[@n]/descendant::tei:div[@n][1]">
                            <sch:let name="parentDivN" value="number(parent::tei:div/@n)"/>
                            <sch:assert test="@n = $parentDivN + .1">
                               The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
                               but it should be "<sch:value-of select="$parentDivN + .1"/>".
                            </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][preceding-sibling::tei:div]">
+                        </sch:rule>-->
+                        <!--<sch:rule context="tei:body/tei:div/tei:div[@n]/child::tei:div[@n][preceding-sibling::tei:div]">
                            <sch:let name="parentDivN" value="parent::tei:div/@n"/>
                            <sch:let name="previousNAtt" value="preceding-sibling::tei:div[1]/@n"/>
                            <sch:let name="previousSequence" value="number(tokenize($previousNAtt, '\.')[last()])"/>
@@ -275,8 +277,8 @@
                               The element &lt;div&gt; is out of sequence. The @n attribute is "<sch:value-of select="@n"/>" 
                               but it should be "<sch:value-of select="$expectedNAtt"/>".
                            </sch:assert>
-                        </sch:rule>
-                        <sch:rule context="tei:text//tei:div[@n][parent::tei:div[@n]]">
+                        </sch:rule>-->
+                        <!--<sch:rule context="tei:text//tei:div[@n][parent::tei:div[@n]]">
                            <sch:let name="parentN" value="parent::tei:div/@n"/>
                            <sch:let name="IDAfter-" value="replace(@xml:id, '\w+-', '')"/>
                            <sch:assert test="starts-with(@n, $parentN)">
@@ -285,7 +287,7 @@
                            <sch:assert test="$IDAfter- = @n">
                               The portion of the @xml:id following the "-" should be "<sch:value-of select="@n"/>".
                            </sch:assert>
-                        </sch:rule>
+                        </sch:rule>-->
                      </constraint>
                   </constraintSpec>
                   <attList>
