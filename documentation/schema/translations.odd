@@ -225,7 +225,7 @@
                      <constraint>
                         <sch:rule context="tei:text//tei:div/@xml:id">
                            <sch:assert test="starts-with(., concat(parent::tei:div/@type, '-'))">
-                              The @xml:id attribute should begin with "<sch:value-of select="concat(@type, '-')"/>".
+                              The @xml:id attribute should begin with "<sch:value-of select="concat(parent::tei:div/@type, '-')"/>".
                            </sch:assert>
                         </sch:rule>
                         <sch:rule context="tei:text//tei:div[@n]/@xml:id">
