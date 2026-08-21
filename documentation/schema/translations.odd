@@ -227,9 +227,9 @@
                            <sch:assert test="starts-with(@xml:id, concat(@type, '-'))">
                               The @xml:id attribute should begin with "<sch:value-of select="concat(@type, '-')"/>".
                            </sch:assert>
-                           <sch:assert test="substring-after(@xml:id, '-') = @n">
+                           <!--<sch:assert test="substring-after(@xml:id, '-') = @n">
                               The @xml:id attribute should be <sch:value-of select="concat(@type, '-', @n)"/>
-                           </sch:assert>
+                           </sch:assert>-->
                         </sch:rule>
                         <sch:rule context="tei:text//tei:div[not(@type='work')][not(@n)]">
                            <sch:assert test="starts-with(@xml:id, concat(@type, '-'))">

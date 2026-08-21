@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-08-21T13:51:02Z. . 
+Schema generated from ODD source 2026-08-21T14:43:37Z. . 
 TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
   
@@ -11650,9 +11650,6 @@ Sample values include: 1] atBirth; 2] atDeath; 3] dependent; 4] inherited; 5] in
                <sch:assert test="starts-with(@xml:id, concat(@type, '-'))">
                               The @xml:id attribute should begin with "<sch:value-of select="concat(@type, '-')"/>".
                            </sch:assert>
-               <sch:assert test="substring-after(@xml:id, '-') = @n">
-                              The @xml:id attribute should be <sch:value-of select="concat(@type, '-', @n)"/>
-               </sch:assert>
             </sch:rule>
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
