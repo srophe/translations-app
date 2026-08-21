@@ -243,7 +243,7 @@
                   </constraintSpec>
                   <constraintSpec ident="n-on-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="
+                        <!--<sch:rule context="
                            tei:body//tei:div[@type = 'section'][following-sibling::tei:div[@type = 'section']] |
                            tei:body//tei:div[@type = 'section'][preceding-sibling::tei:div[@type = 'section']] |
                            tei:body//tei:div[@type = 'section'][parent::tei:div[@type = 'section']] |
@@ -252,7 +252,7 @@
                            <sch:assert test="@n">
                               This &lt;div&gt; requires an @n attribute.
                            </sch:assert>
-                        </sch:rule>
+                        </sch:rule>-->
                         <!--<sch:rule context="tei:body/child::tei:div[@type='work']/child::tei:div[@type='section'][not(following-sibling::tei:div[@type='section'])]">
                            <sch:report test="@n">
                               This &lt;div&gt; cannot have an @n attribute.
