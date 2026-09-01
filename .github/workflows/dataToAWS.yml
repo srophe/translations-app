@@ -89,7 +89,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          aws s3 cp bulk_data.json s3://gaddel-translations-site/json-data/index_1_$TIMESTAMP.json --acl private
+          aws s3 cp json/combined.json s3://gaddel-translations-site/json-data/index_1_$TIMESTAMP.json --acl private
 
       # 6. Commit manuscripts.json (json form of tei data) to repo
       - name: Commit manuscripts JSON to repo
