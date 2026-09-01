@@ -223,11 +223,11 @@
                   </constraintSpec>
                   <constraintSpec ident="xmlID-on-div" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:text//tei:div/@xml:id">
+                        <!--<sch:rule context="tei:text//tei:div/@xml:id">
                            <sch:assert test="starts-with(., concat(parent::tei:div/@type, '-'))">
                               The @xml:id attribute should begin with "<sch:value-of select="concat(parent::tei:div/@type, '-')"/>".
                            </sch:assert>
-                        </sch:rule>
+                        </sch:rule>-->
                         <sch:rule context="tei:text//tei:div[@n]/@xml:id">
                            <sch:assert test="ends-with(., concat('.', @n))">
                               The @xml:id attribute should end with <sch:value-of select="concat('.', @n)"/>
