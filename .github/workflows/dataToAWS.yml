@@ -83,20 +83,20 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           role-session-name: GitHub-OIDC-batch-upload
 
-      # 5. Upload JSON to S3 (staging for OpenSearch ingestion)
-      - name: Upload JSON to S3
-        env:
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          aws s3 cp json/combined.json s3://gaddel-translations-site/json-data/index_1_$TIMESTAMP.json --acl private
+      # # 5. Upload JSON to S3 (staging for OpenSearch ingestion)
+      # - name: Upload JSON to S3
+      #   env:
+      #     AWS_REGION: ${{ secrets.AWS_REGION }}
+      #   run: |
+      #     TIMESTAMP=$(date +%Y%m%d%H%M%S)
+      #     aws s3 cp json/combined.json s3://gaddel-translations-site/json-data/index_1_$TIMESTAMP.json --acl private
 
       # 6. Commit manuscripts.json (json form of tei data) to repo
       - name: Commit manuscripts JSON to repo
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add manuscripts.json
+          git add json/combined.json
           git diff --staged --quiet || git commit -m "Update manuscripts.json from data conversion"
           git push
 
