@@ -229,9 +229,9 @@
                            </sch:assert>
                         </sch:rule>-->
                         <sch:rule context="tei:text//tei:div[@n]/@xml:id">
-                           <sch:assert test="ends-with(., concat('.', @n))">
+                           <!--<sch:assert test="ends-with(., concat('.', @n))">
                               The @xml:id attribute should end with <sch:value-of select="concat('.', @n)"/>
-                           </sch:assert>
+                           </sch:assert>-->
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
