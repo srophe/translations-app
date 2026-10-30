@@ -438,7 +438,7 @@
                      <constraint>
                         <sch:rule context="tei:publicationStmt/tei:idno[@type='URI']">
                            <sch:let name="fileNo" value="replace(document-uri(/), '^.*?(\d{1,5})\.xml$', '$1')"/>
-                           <sch:let name="expectedURI" value="concat('http://syriac-sourcebook.org/', $fileNo, '.xml')"/>
+                           <sch:let name="expectedURI" value="concat('https://syriac-sourcebook.org/', $fileNo, '.xml')"/>
                            <sch:assert test="if (matches(document-uri(/), '\d{1,5}\.xml$')) 
                               then text() = $expectedURI 
                               else true()">
