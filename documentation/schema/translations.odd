@@ -641,6 +641,23 @@
                </elementSpec>
                
                
+               <elementSpec ident="notesStmt" module="header" mode="change">
+                  <content>
+                     <elementRef key="relatedItem" minOccurs="1" maxOccurs="2"/>
+                  </content>
+                  <constraintSpec ident="series-req" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:fileDesc[tei:seriesStmt[2]]">
+                           <sch:assert test="tei:notesStmt">
+                              This work is part of a series that requires a &lt;notesStmt&gt;
+                              element indicating the place of this work in that series.
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
+               </elementSpec>
+               
+               
                <elementSpec ident="persName" module="namesdates" mode="change">
                   <content>
                      <sequence preserveOrder="false">
@@ -768,6 +785,20 @@
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
+                  <constraintSpec ident="series-ptr" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:notesStmt/tei:relatedItem/tei:ptr">
+                           <sch:assert test="@target">This &lt;ptr&gt; element
+                              must have a @target attribute.</sch:assert>
+                        </sch:rule>
+                        <sch:rule context="tei:notesStmt/tei:relatedItem/tei:ptr/@target">
+                           <sch:assert test="matches(., '^https://syriac-sourcebook.org/\d{1,5}$')">
+                              This @target attribute must match the pattern https://syriac-sourcebook.org/\d{1,5}
+                              where "\d{1,5}" is a number with 1-5 digits.
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                </elementSpec>
                
                
@@ -807,6 +838,45 @@
                         </datatype>
                      </attDef>
                   </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="relatedItem" module="core" mode="change">
+                  <content>
+                     <elementRef key="ptr" minOccurs="1" maxOccurs="1"/>
+                  </content>
+                  <attList>
+                     <attDef ident="type" usage="req" mode="change">
+                        <valList type="closed">
+                           <valItem ident="previous">
+                              <desc>For indicating the work in a series of works
+                              that precedes the current work.</desc>
+                           </valItem>
+                           <valItem ident="next">
+                              <desc>For indicating the work in a series of works
+                                 that follows the current work.</desc>
+                           </valItem>
+                        </valList>
+                     </attDef>
+                  </attList>
+               </elementSpec>
+               
+               
+               <elementSpec ident="seriesStmt" module="header" mode="change">
+                  <constraintSpec ident="first-series" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:fileDesc/tei:seriesStmt[1]">
+                           <sch:assert test="matches(tei:title, '^The Syriac Sourcebook$')">
+                              This &lt;seriesStmt&gt; requires a &lt;title&gt; element with text node
+                              "The Syriac Sourcebook".
+                           </sch:assert>
+                           <sch:assert test="matches(tei:idno, '^https://syriac-sourcebook.org$')">
+                              This &lt;seriesStmt&gt; requires an &lt;idno&gt; element with text node
+                              "https://syriac-sourcebook.org".
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
                </elementSpec>
                
                
