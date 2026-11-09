@@ -935,10 +935,10 @@
                               element with @level="a" for this work followed by a &lt;title&gt; element with @level="s"
                               for the title of the larger collection.
                            </sch:report>
-                           <sch:assert test="if (.[@level='s']) then ancestor::tei:fileDesc/tei:seriesStmt[2] else false()">
+                           <sch:assert test="if (@level='s') then exists(ancestor::tei:fileDesc/tei:seriesStmt[2]) else true()">
                               This work is part of a series that requires a &lt;seriesStmt&gt; element indicating that series.
                            </sch:assert>
-                           <sch:assert test="if (.[@level='s']) then ancestor::tei:fileDesc/tei:notesStmt else false()">
+                           <sch:assert test="if (@level='s') then exists(ancestor::tei:fileDesc/tei:notesStmt) else true()">
                               This work is part of a series that requires a &lt;notesStmt&gt;
                               element indicating the place of this work in that series.
                            </sch:assert>

@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2026-11-09T21:33:15Z. . 
+Schema generated from ODD source 2026-11-09T21:44:48Z. . 
 TEI Edition: P5 Version 4.11.0. Last updated on 18th February 2026, revision 358d2e48e 
 TEI Edition Location: https://www.tei-c.org/Vault/P5/4.11.0/ 
   
@@ -6481,10 +6481,10 @@ Elements]</a:documentation>
                               element with @level="a" for this work followed by a &lt;title&gt; element with @level="s"
                               for the title of the larger collection.
                            </sch:report>
-               <sch:assert test="if (.[@level='s']) then ancestor::tei:fileDesc/tei:seriesStmt[2] else false()">
+               <sch:assert test="if (@level='s') then exists(ancestor::tei:fileDesc/tei:seriesStmt[2]) else true()">
                               This work is part of a series that requires a &lt;seriesStmt&gt; element indicating that series.
                            </sch:assert>
-               <sch:assert test="if (.[@level='s']) then ancestor::tei:fileDesc/tei:notesStmt else false()">
+               <sch:assert test="if (@level='s') then exists(ancestor::tei:fileDesc/tei:notesStmt) else true()">
                               This work is part of a series that requires a &lt;notesStmt&gt;
                               element indicating the place of this work in that series.
                            </sch:assert>
