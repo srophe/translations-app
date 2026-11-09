@@ -635,7 +635,10 @@
                   <content>
                      <sequence minOccurs="1" maxOccurs="1" preserveOrder="true">
                         <elementRef key="desc" minOccurs="0" maxOccurs="1"/>
-                        <elementRef key="note" minOccurs="1" maxOccurs="unbounded"/>
+                        <sequence preserveOrder="false">
+                           <elementRef key="note" minOccurs="1" maxOccurs="unbounded"/>
+                           <elementRef key="pb" minOccurs="0" maxOccurs="unbounded"/>
+                        </sequence>
                      </sequence>
                   </content>
                </elementSpec>
