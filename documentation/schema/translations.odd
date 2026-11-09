@@ -645,12 +645,16 @@
                   <content>
                      <elementRef key="relatedItem" minOccurs="1" maxOccurs="2"/>
                   </content>
-                  <constraintSpec ident="series-req" scheme="schematron">
+                  <constraintSpec ident="notesStmt-series-req" scheme="schematron">
                      <constraint>
-                        <sch:rule context="tei:fileDesc[tei:seriesStmt[2]]">
-                           <sch:assert test="tei:notesStmt">
-                              This work is part of a series that requires a &lt;notesStmt&gt;
-                              element indicating the place of this work in that series.
+                        <sch:rule context="tei:notesStmt">
+                           <sch:assert test="ancestor::tei:fileDesc/tei:titleStmt/tei:title[@level='s']">
+                              This work is part of a series that requires a &lt;title&gt; element with
+                              @level="s" in the &lt;titleStmt&gt;.
+                           </sch:assert>
+                           <sch:assert test="ancestor::tei:fileDesc/tei:seriesStmt[2]">
+                              This work is part of a series that requires a &lt;seriesStmt&gt;
+                              element indicating that this work is part of that series.
                            </sch:assert>
                         </sch:rule>
                      </constraint>
@@ -877,6 +881,21 @@
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
+                  <constraintSpec ident="seriesStmt-series-req" scheme="schematron">
+                     <constraint>
+                        <sch:rule context="tei:seriesStmt[2]">
+                           <sch:assert test="ancestor::tei:fileDesc/tei:titleStmt/tei:title[@level='s']">
+                              This work is part of a series that requires a &lt;title&gt; element with
+                              @level="s" in the &lt;titleStmt&gt;.
+                           </sch:assert>
+                           <sch:assert test="following-sibling::tei:notesStmt">
+                              This work is part of a series that requires a &lt;notesStmt&gt;
+                              element indicating the place of this work in that series.
+                           </sch:assert>
+                        </sch:rule>
+                     </constraint>
+                  </constraintSpec>
+                  
                </elementSpec>
                
                
@@ -916,6 +935,13 @@
                               element with @level="a" for this work followed by a &lt;title&gt; element with @level="s"
                               for the title of the larger collection.
                            </sch:report>
+                           <sch:assert test="if (.[@level='s']) then ancestor::tei:fileDesc/tei:seriesStmt[2] else false()">
+                              This work is part of a series that requires a &lt;seriesStmt&gt; element indicating that series.
+                           </sch:assert>
+                           <sch:assert test="if (.[@level='s']) then ancestor::tei:fileDesc/tei:notesStmt else false()">
+                              This work is part of a series that requires a &lt;notesStmt&gt;
+                              element indicating the place of this work in that series.
+                           </sch:assert>
                         </sch:rule>
                      </constraint>
                   </constraintSpec>
