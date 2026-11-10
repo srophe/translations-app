@@ -7,14 +7,38 @@
     
     <!-- Divs, sections etc -->
     <xsl:template match="t:ab">
-        <div class="tei-ab-block">
+        <div class="row">
+            <div class="col-md-1 ab-number">
+                <xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if>
+            </div>
+            <div class="col-md-11">
+                <div class="tei-ab tei-p">
+                    <xsl:apply-templates/>
+                </div>
+            </div>
+
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="t:div">
+        <div class="tei-div {if(@type) then @type else()}">
+            <xsl:if test="@xml:id"><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></xsl:if>
+            <!--
+                <xsl:if test="@n and t:head">
+                </xsl:if>
+            -->
             <xsl:apply-templates/>
         </div>
+    </xsl:template>
+    <!-- Page breaks -->
+    <!-- <pb type="vol" n="231"/><pb type="running" rend="brackets" n="231"/> -->
+    <xsl:template match="t:pb">
         <span>
             <xsl:attribute name="class">
-                <xsl:value-of select="concat('tei-ab',if(@type) then concat(' ab-type-',@type) else (), if(@rend) then concat(' ab-rend-',@rend) else ())"/>
+                <xsl:value-of select="concat('tei-pb',if(@type) then concat(' pb-type-',@type) else (), if(@rend) then concat(' pb-rend-',@rend) else ())"/>
             </xsl:attribute>
             <xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if>
+            <xsl:apply-templates/>
         </span>
     </xsl:template>
     
@@ -30,8 +54,18 @@
         </span>
     </xsl:template>
     
+    <xsl:template match="t:ptr">
+        <xsl:choose>
+            <xsl:when test="@type='noteAnchor'">
+                <a id="{@xml:id}" href="{@target}" class="link_ptr noteAnchor"><xsl:value-of select="@n"/></a>
+            </xsl:when>
+            <xsl:otherwise><xsl:apply-templates select="self::*"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- Notes -->
     <!-- noteGrp -->
+    <!-- <a id="a1" class="link_ptr" href="#n1" title="1">2</a> -->
+    <!-- <ptr type="noteAnchor" xml:id="a1" target="#n1" n="1"/> -->
     <xsl:template match="t:noteGrp">
         <h3>Notes</h3>
         <xsl:choose>
@@ -50,17 +84,8 @@
                 </ul>
             </xsl:otherwise>
         </xsl:choose>
-       
     </xsl:template>
-    <!-- Page breaks -->
-    <!-- <pb type="vol" n="231"/><pb type="running" rend="brackets" n="231"/> -->
-    <xsl:template match="t:pb">
-        <span>
-            <xsl:attribute name="class">
-                <xsl:value-of select="concat('tei-pb',if(@type) then concat(' pb-type-',@type) else (), if(@rend) then concat(' pb-rend-',@rend) else ())"/>
-            </xsl:attribute>
-            <xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if>
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
+    
+    
+    
 </xsl:stylesheet>

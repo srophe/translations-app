@@ -118,7 +118,7 @@ div.toggle-buttons label:active:after {
 	width: 26px;
 }
 div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
-
+.ab-number {text-align:right;}
 
 /* TEI Styles */
 .lg {margin:1em 0;}
@@ -128,10 +128,16 @@ div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
 .noteGrp {margin:1em 0;}
 .noteLabel {display:none;}
 .section {margin:1em;}
+.tei-ab {display:block; margin-bottom:.5em !important;}
+.tei-p {display:block; margin-bottom:.5em !important;}
 .tei_body {margin:2em; padding: 1em;}
-.tei-ab.block {display:block; text-align:center;}
-.tei-ab.inline {display:inline;}
-.tei-ab {display:none;}
 .tei-pb.block {display:block; text-align:center;}
-.tei-pb.inline {display:inline;}
+.tei-pb.inline {display:inline-block; margin:0 .5em;}
 .tei-pb {display:none;}
+.italics{font-style: italic;}
+.tei-div {display:block; margin-bottom:1em;}
+.ab-number {}
+.singleQuotes::before{content: '‘';}
+.singleQuotes::after{content: '’';}
+.doubleQuotes::before {content: '“';}
+.doubleQuotes::after {content: '”';}

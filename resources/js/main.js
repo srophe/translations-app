@@ -24,7 +24,7 @@ $(document).ready(function () {
     //Toggle
     $('input.toggleDisplay').click(function () {
         var display = $(this).data("element");
-        $('.' + display).toggleClass("active block")
+        $('.' + display).toggleClass("inline")
         var section = $('.' + display).hasClass("tei-head");
         //Change checkbox to active
         $(this).toggleClass("active");
