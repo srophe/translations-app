@@ -128,11 +128,15 @@ div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
 .noteGrp {margin:1em 0;}
 .noteLabel {display:none;}
 .section {margin:1em;}
-.tei-ab {display:block; margin-bottom:.5em !important;}
+.ab-number {display:none;}
+.ab-number.block {display:block;}
+.ab-number.inline {display:block;}
 .tei-p {display:block; margin-bottom:.5em !important;}
 .tei_body {margin:2em; padding: 1em;}
 .tei-pb.block {display:block; text-align:center;}
 .tei-pb.inline {display:inline-block; margin:0 .5em;}
+.tei-pb.inline::before{content: '[';}
+.tei-pb.inline:after{content: ']';}
 .tei-pb {display:none;}
 .italics{font-style: italic;}
 .tei-div {display:block; margin-bottom:1em;}
@@ -141,3 +145,5 @@ div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
 .singleQuotes::after{content: '’';}
 .doubleQuotes::before {content: '“';}
 .doubleQuotes::after {content: '”';}
+/* Language */
+:lang(la){font-style: italic;}

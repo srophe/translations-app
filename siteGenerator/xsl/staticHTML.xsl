@@ -701,63 +701,63 @@
                     </xsl:for-each>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:ab[not(@type) and not(@subtype)][@n]">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> ab : </span>
-                            <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
-                            <label for="toggleab">ab</label>
+                            <span class="toggle-label"> Paragraph Numbers : </span>
+                            <input class="toggleDisplay active" type="checkbox" id="toggleab" data-element="ab-number"/>
+                            <label for="toggleab">Paragraph Numbers</label>
                         </div>
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:ab[@type][@n]">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> ab : </span>
-                            <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
-                            <label for="toggleab">ab</label>
+                            <span class="toggle-label"> Paragraph Numbers : </span>
+                            <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="ab-number"/>
+                            <label for="toggleab">Paragraph Numbers</label>
                         </div>
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:l">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> line : </span>
+                            <span class="toggle-label"> Line : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l" checked="checked"/>
                             <label for="togglel">line</label>
                         </div>
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:lb">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> line break : </span>
+                            <span class="toggle-label"> Line Number : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglelb" data-element="tei-lb"/>
                             <label for="togglelb">line break</label>
                         </div>
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:lg">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> line group : </span>
+                            <span class="toggle-label"> Line Group : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglelg" data-element="tei-lg"/>
                             <label for="togglelg">line group</label>
                         </div>    
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:pb">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> page break : </span>
+                            <span class="toggle-label"> Page Numbers: </span>
                             <input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb"/>
-                            <label for="togglepb">page break</label>
+                            <label for="togglepb">Page Numbers</label>
                         </div>    
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:cb">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> column break : </span>
+                            <span class="toggle-label"> Column Break : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglecb" data-element="tei-cb"/>
                             <label for="togglecb">column break</label>
                         </div>   
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:milestone[not(@type) and not(@subtype) and not(@unit='SyrChapter')]">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> milestone : </span>
+                            <span class="toggle-label"> Milestone : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-milestone"/>
                             <label for="togglemilestone">milestone</label>
                         </div>  
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:note[@place = ('foot','footer','footnote')]">
                         <div class="toggle-buttons">
-                            <span class="toggle-label"> footnote : </span>
+                            <span class="toggle-label"> Footnote : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-footnote" checked="checked"/>
                             <label for="togglemilestone">footnote</label>
                         </div>   

@@ -7,16 +7,15 @@
     
     <!-- Divs, sections etc -->
     <xsl:template match="t:ab">
-        <div class="row">
-            <div class="col-md-1 ab-number">
-                <xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if>
+        <div class="row tei-p tei-ab">
+            <div class="col-md-1"><xsl:if test="@xml:id"><xsl:attribute name="id"><xsl:value-of select="concat('ab',@xml:id)"/></xsl:attribute></xsl:if>
+                <span class="ab-number inline"><xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if></span>
             </div>
             <div class="col-md-11">
-                <div class="tei-ab tei-p">
+                <div class="tei-ab">
                     <xsl:apply-templates/>
                 </div>
             </div>
-
         </div>
     </xsl:template>
     
@@ -37,6 +36,7 @@
             <xsl:attribute name="class">
                 <xsl:value-of select="concat('tei-pb',if(@type) then concat(' pb-type-',@type) else (), if(@rend) then concat(' pb-rend-',@rend) else ())"/>
             </xsl:attribute>
+            <xsl:if test="@xml:id"><xsl:attribute name="id"><xsl:value-of select="concat('pb',@xml:id)"/></xsl:attribute></xsl:if>
             <xsl:if test="@n"><xsl:value-of select="@n"/></xsl:if>
             <xsl:apply-templates/>
         </span>
