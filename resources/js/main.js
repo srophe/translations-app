@@ -25,10 +25,8 @@ $(document).ready(function () {
     $('input.toggleDisplay').click(function () {
         var display = $(this).data("element");
         $('.' + display).toggleClass("inline")
-        var section = $('.' + display).hasClass("tei-head");
         //Change checkbox to active
         $(this).toggleClass("active");
-        console.log(display);
     });
     
     $('button.toggleHead').click(function () {

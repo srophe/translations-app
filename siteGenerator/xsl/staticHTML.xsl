@@ -702,14 +702,14 @@
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:ab[not(@type) and not(@subtype)][@n]">
                         <div class="toggle-buttons">
                             <span class="toggle-label"> Paragraph Numbers : </span>
-                            <input class="toggleDisplay active" type="checkbox" id="toggleab" data-element="ab-number"/>
+                            <input class="toggleDisplay active" type="checkbox" id="toggleab" data-element="ab-number" checked="checked"/>
                             <label for="toggleab">Paragraph Numbers</label>
                         </div>
                     </xsl:if>
                     <xsl:if test="$nodes/descendant::t:body/descendant::t:ab[@type][@n]">
                         <div class="toggle-buttons">
                             <span class="toggle-label"> Paragraph Numbers : </span>
-                            <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="ab-number"/>
+                            <input class="toggleDisplay active" type="checkbox" id="toggleab" data-element="ab-number" checked="checked"/>
                             <label for="toggleab">Paragraph Numbers</label>
                         </div>
                     </xsl:if>

@@ -74,13 +74,13 @@
 .otherFormats {width:100%; float:right;}
 
 .interior-content {margin:2em;}
+
 /* Toggle button styles */
 div.toggle-buttons input[type=checkbox]{
 	height: 0;
 	width: 0;
 	visibility: hidden;
 }
-
 div.toggle-buttons label {
 	cursor: pointer;
 	text-indent: -9999px;
@@ -92,7 +92,6 @@ div.toggle-buttons label {
 	position: relative;
 	display: inline-block;
 }
-
 div.toggle-buttons label:after {
 	content: '';
 	position: absolute;
@@ -104,21 +103,15 @@ div.toggle-buttons label:after {
 	border-radius: 16px;
 	transition: 0.3s;
 }
-
 div.toggle-buttons input:checked + label {
 	background: /*#bada55*/ #5FC0DD;
 }
-
 div.toggle-buttons input:checked + label:after {
 	left: calc(100% - 5px);
 	transform: translateX(-100%);
 }
-
-div.toggle-buttons label:active:after {
-	width: 26px;
-}
+div.toggle-buttons label:active:after {width: 26px;}
 div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
-.ab-number {text-align:right;}
 
 /* TEI Styles */
 .lg {margin:1em 0;}
@@ -128,7 +121,7 @@ div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
 .noteGrp {margin:1em 0;}
 .noteLabel {display:none;}
 .section {margin:1em;}
-.ab-number {display:none;}
+.ab-number {display:none; text-align:right;}
 .ab-number.block {display:block;}
 .ab-number.inline {display:block;}
 .tei-p {display:block; margin-bottom:.5em !important;}
