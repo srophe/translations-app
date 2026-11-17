@@ -113,6 +113,28 @@ div.toggle-buttons input:checked + label:after {
 div.toggle-buttons label:active:after {width: 26px;}
 div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
 
+/* Footnotes */
+
+.footnoteDisplay{
+  position: absolute;
+  bottom: 100%; /* Floats directly above the number */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: #1e293b;
+  color: #f8fafc;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  
+  /* Smooth reveal animation */
+  animation: fadeIn 0.2s ease-out;
+}
+
 /* TEI Styles */
 .lg {margin:1em 0;}
 .l {display:block;}
@@ -140,3 +162,6 @@ div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
 .doubleQuotes::after {content: '”';}
 /* Language */
 :lang(la){font-style: italic;}
+
+/* Hide unneeded HTML elements */
+.headingNumber{display:none;}

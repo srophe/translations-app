@@ -27,6 +27,8 @@
        2. Run TEI through xslt. Make sure there are matching HTML templates in the ../components directory 
           for each collection that has been declared in your repo-config.xml 
        
+       HTLM generated using the TEI Consortium XSLT stylesheets. For custom rendering or to override TEI Consortium styles, 
+       use the custom.xsl
        
         
        code by: 
@@ -95,32 +97,79 @@
     <xsl:param name="outputFile" select="''"/>
     <xsl:param name="outputCollection" select="''"/>
     -->
-    
-    <!-- Find repo-config to find collection style values and page stubs -->
-    <xsl:variable name="configPath">
-        <xsl:value-of select="'../components/repo-config.xml'"/>
-        <!-- 
-        <xsl:choose>
-            <xsl:when test="$applicationPath != ''">
-                <xsl:value-of select="concat($applicationPath, '/siteGenerator/components/repo-config.xml')"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="'../components/repo-config.xml'"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        -->
-    </xsl:variable>
-    
+ 
     <!-- Get configuration file.  -->
     <xsl:variable name="config">
-        <xsl:choose>
-            <xsl:when test="doc-available(xs:anyURI($configPath))">
-                <xsl:sequence select="document(xs:anyURI($configPath))"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:message>No config file: <xsl:value-of select="$configPath"/></xsl:message>
-            </xsl:otherwise>
-        </xsl:choose>
+        <config>
+            <title>Translations Application</title>
+            <base_uri>http://syriaca.org</base_uri>
+            <collections>
+                <collection template="page" name="page" title="Translations Application" app-root="/" data-root="" record-URI-pattern="">
+                    <header>
+                        <link rel="shortcut icon" href="/resources/images/fav-icons/geo-favicon.ico"/>
+                    </header>
+                    <navbar>
+                        <script xmlns="http://www.w3.org/1999/xhtml" src="/resources/js/navbar-search.js"></script>
+                        <div xmlns="http://www.w3.org/1999/xhtml" id="navbar-container"></div>
+                    </navbar>
+                    <footer></footer>
+                </collection>
+                <!--Examples of collection, subcollections
+                <collection template="geo" name="places" title="The Syriac Gazetteer" app-root="/geo/" data-root="places" record-URI-pattern="http://syriaca.org/place/">
+                    <header>
+                        <link rel="shortcut icon" href="/resources/images/fav-icons/geo-favicon.ico"/>
+                        <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="/resources/css/geo.css"/>
+                    </header>
+                    <navbar>
+                        <script xmlns="http://www.w3.org/1999/xhtml" src="/resources/js/geo-navbar-search.js"></script>
+                        <div xmlns="http://www.w3.org/1999/xhtml" id="navbar-container"></div>
+                    </navbar>
+                    <footer></footer>
+                </collection>
+                <collection template="johnofephesus" name="johnofephesus" title="A Guide to John of Ephesus [Beta]" app-root="/johnofephesus/" data-root="" record-URI-pattern="http://syriaca.org/johnofephesus/">
+                    <header>
+                        <link rel="shortcut icon" href="/resources/images/fav-icons/joe-favicon.ico"/>
+                        <link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" type="text/css" href="/resources/css/johnEphesus.css"/>
+                    </header>
+                    <navbar>
+                        <nav xmlns="http://www.w3.org/1999/xhtml" class="navbar navbar-default navbar-fixed-top" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"/>
+                                    <span class="icon-bar"/>
+                                    <span class="icon-bar"/>
+                                </button>
+                                <a class="navbar-brand banner-container" href="/johnofephesus/index.html"> 
+                                    <span class="syriaca-icon syriaca-geo banner-icon">
+                                        <img src="/resources/images/johnEphesus/logo3.png"/>
+                                    </span>
+                                    A Guide to John of Ephesus
+                                </a>
+                            </div>
+                            <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <a href="/johnofephesus/index.html" class="nav-text">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="/johnofephesus/persons/index.html" class="nav-text">Prosopography</a>
+                                    </li>
+                                    <li>
+                                        <a href="/johnofephesus/places/index.html" class="nav-text">Gazetteer</a>
+                                    </li>
+                                    <li>
+                                        <a href="/index.html" class="nav-text">Syriaca.org</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </navbar>
+                    <footer></footer>
+                </collection>
+                -->
+            </collections>
+        </config>
     </xsl:variable>
       
     <!-- Root of app for building dynamic links. Default is eXist app root -->
@@ -423,51 +472,98 @@
                     </xsl:when>
                     <xsl:otherwise><xsl:message>No template found for html:head element</xsl:message></xsl:otherwise>
                 </xsl:choose>
+            <!-- HTML Header, use templates as already estabilished, if no template exists, use generic 'page.html' -->
+            <head>
+                <!-- Collection specific title -->
+                <title>
+                    <xsl:choose>
+                        <xsl:when test="$nodes/descendant-or-self::t:titleStmt/t:title[1]">
+                            <xsl:value-of select="$nodes/descendant-or-self::t:titleStmt/t:title[1]"/>                
+                        </xsl:when>
+                        <xsl:otherwise><xsl:value-of select="$config/descendant-or-self::t:title[1]"/></xsl:otherwise>
+                    </xsl:choose> 
+                </title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <!-- Collection specific icon -->
+                <xsl:choose>
+                    <xsl:when test="$collectionValues/descendant::*:link[@rel='shortcut icon']">
+                        <xsl:copy-of select="$collectionValues/descendant::*:link[@rel='shortcut icon']"/>
+                    </xsl:when>
+                    <xsl:otherwise><link rel="shortcut icon" href="/resources/images/fav-icons/syriaca-favicon.ico"/></xsl:otherwise>
+                </xsl:choose> 
+                <!-- Bootstrap 3 -->
+                <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css"/>
+                <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css"/>
+                <!-- Application styles -->
+                <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css"/>
+                <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+                <!-- Collection specific css -->
+                <xsl:if test="$collectionValues/descendant::*:link[@rel='stylesheet']">
+                    <xsl:copy-of select="$collectionValues/descendant::*:link[@rel='stylesheet']"/>    
+                </xsl:if>
+                <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css"/>
+                <!-- JQuery -->
+                <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+                <script type="text/javascript" src="/resources/js/jquery.min.js"/>
+                <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"/>
+                <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"/>
+                <script type="text/javascript" src="/resources/js/clipboard.min.js"/>
+                <!-- Bootstrap -->
+                <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"/>
+                <!-- keyboard widget css & script -->
+                <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+                <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+                <link href="/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+                <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"/>
+                <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+                <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+                <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+                <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"/>
+                <script type="text/javascript" src="/resources/keyboard/syr/syr.js"/>
+                <script type="text/javascript" src="/resources/keyboard/layouts/ms-Greek.min.js"/>
+                <script type="text/javascript" src="/resources/keyboard/layouts/ms-Russian.min.js"/>
+                <script type="text/javascript" src="/resources/keyboard/layouts/ms-Arabic.min.js"/>
+                <script type="text/javascript" src="/resources/keyboard/layouts/ms-Hebrew.min.js"/>
+                <script type="text/javascript" src="/resources/js/keyboard.js"></script>
+            </head>
             <body id="body">
+                <!-- Dynamic navbar -->
                 <script src="/resources/js/navbar-search.js"></script>
                 <div id="navbar-container"></div>
-                <xsl:choose>
-                    <xsl:when test="$pageType = 'HTML'">
-                        <xsl:copy-of select="$nodes"/>
-                    </xsl:when>
-                    <xsl:when test="$pageType = 'RDF'">
-                        <xsl:apply-templates select="$nodes/rdf:Description[@rdf:about = $idno]"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <div class="main-content-block">
-                            <xsl:variable name="leftMenu">
-                                <xsl:call-template name="toggleOptions">
-                                    <xsl:with-param name="nodes" select="$nodes"/>
-                                </xsl:call-template>
-                            </xsl:variable>
-                            <div class="interior-content">
-                                <div class="row">
-                                    <xsl:if test="$leftMenu != ''">
-                                        <div class="col-md-2">
-                                            <xsl:call-template name="toggleOptions">
-                                                <xsl:with-param name="nodes" select="$nodes"/>
-                                            </xsl:call-template>
-                                        </div>
-                                    </xsl:if>
-                                    <div>
-                                        <xsl:choose>
-                                            <xsl:when test="$leftMenu != ''">
-                                                <xsl:attribute name="class">col-md-6</xsl:attribute>
-                                            </xsl:when>
-                                            <xsl:otherwise><xsl:attribute name="class">col-md-8</xsl:attribute></xsl:otherwise>
-                                        </xsl:choose>
-                                        <xsl:apply-templates select="$nodes/descendant::t:teiHeader">
-                                            <xsl:with-param name="collection" select="$collection"/>
-                                            <xsl:with-param name="idno" select="$idno"/>
-                                        </xsl:apply-templates>
-                                        <br/>
-                                        <xsl:apply-templates select="$nodes/descendant::t:text">
-                                            <xsl:with-param name="collection" select="$collection"/>
-                                            <xsl:with-param name="idno" select="$idno"/>
-                                        </xsl:apply-templates>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <!--
+                <div class="main-content-block">
+                    <xsl:variable name="leftMenu">
+                        <xsl:call-template name="toggleOptions">
+                            <xsl:with-param name="nodes" select="$nodes"/>
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <div class="interior-content">
+                        <div class="row">
+                            <xsl:if test="$leftMenu != ''">
+                                <div class="col-md-2">
+                                    <xsl:call-template name="toggleOptions">
+                                        <xsl:with-param name="nodes" select="$nodes"/>
+                                    </xsl:call-template>
+                                </div>
+                            </xsl:if>
+                            <div>
+                                <xsl:choose>
+                                    <xsl:when test="$leftMenu != ''">
+                                        <xsl:attribute name="class">col-md-6</xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:otherwise><xsl:attribute name="class">col-md-8</xsl:attribute></xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:apply-templates select="$nodes/descendant::t:teiHeader">
+                                    <xsl:with-param name="collection" select="$collection"/>
+                                    <xsl:with-param name="idno" select="$idno"/>
+                                </xsl:apply-templates>
+                                <br/>
+                                <xsl:apply-templates select="$nodes/descendant::t:text">
+                                    <xsl:with-param name="collection" select="$collection"/>
+                                    <xsl:with-param name="idno" select="$idno"/>
+                                </xsl:apply-templates>
+                            </div>
+                            <div class="col-md-4">
+                                <!--
                                         <xsl:call-template name="otherDataFormats">
                                             <xsl:with-param name="node" select="t:TEI"/>
                                             <xsl:with-param name="idno" select="$idno"/>
@@ -475,35 +571,16 @@
                                         </xsl:call-template>
                                         <br/>
                                         -->
-                                        <xsl:call-template name="moreInfo">
-                                            <xsl:with-param name="nodes" select="$nodes"/>
-                                        </xsl:call-template>
-                                    </div>
-                                </div>
+                                <xsl:call-template name="moreInfo">
+                                    <xsl:with-param name="nodes" select="$nodes"/>
+                                </xsl:call-template>
                             </div>
                         </div>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:if test="doc-available(xs:anyURI(concat($staticSitePath,'/siteGenerator/components/footer.html')))">
-                    <xsl:copy-of select="document(xs:anyURI(concat($staticSitePath,'/siteGenerator/components/footer.html')))"/>
-                </xsl:if>
-                <script type="text/javascript">
-                    $('html').click(function() {
-                    $('#footnoteDisplay').hide();
-                    $('#footnoteDisplay div.content').empty();
-                    })
-                    
-                    $('.footnote-ref a').click(function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    var link = $(this);
-                    var href = $(this).attr('href');
-                    var content = $(href).html()
-                    $('#footnoteDisplay').css('display','block');
-                    $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
-                    $('#footnoteDisplay div.content').html( content );    
-                    });
-                </script>
+                    </div>
+                </div>
+                <footer>
+                    <div class="container"><!-- placeholder --></div>
+                </footer>
             </body>
             <xsl:if test="$template/child::*[1]/html:script">
                 <xsl:copy-of select="$template/child::*[1]/html:script"/>
